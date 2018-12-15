@@ -9,6 +9,7 @@ const metrics = {
   section: 25,
   roundedButtonMarginToBeCentered:105,
   baseMargin: 10,
+  meduimMargin:15,
   baseMarginForText: 5,
   doubleBaseMargin: 20,
   smallMargin: 5,
@@ -29,7 +30,7 @@ const metrics = {
     small: 20,
     medium: 40,
     large: 60,
-    logo: 200
+    logo: 250
   }
 }
 

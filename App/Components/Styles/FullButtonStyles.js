@@ -2,13 +2,21 @@ import { StyleSheet } from 'react-native'
 import { Fonts, Colors } from '../../Themes/'
 
 export default StyleSheet.create({
-  button: {
+  buttonActive: {
     marginVertical: 5,
-    borderTopColor: Colors.fire,
-    borderBottomColor: Colors.bloodOrange,
+    borderTopColor: Colors.roundedGreenButton,
+    borderBottomColor: Colors.roundedGreenButton,
     borderTopWidth: 1,
     borderBottomWidth: 1,
-    backgroundColor: Colors.ember
+    backgroundColor: Colors.roundedGreenButton
+  },
+  buttonDisabled: {
+    marginVertical: 5,
+    borderTopColor: Colors.disabledGreen,
+    borderBottomColor: Colors.disabledGreen,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    backgroundColor: Colors.disabledGreen
   },
   buttonText: {
     margin: 18,

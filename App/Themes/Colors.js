@@ -25,7 +25,8 @@ const colors = {
   roundedGreenButton: "#2EBF68",
   roundedOrangeButton: "#F29A40",
   black: "black",
-  gray: 'gray'
+  gray: 'gray',
+  disabledGreen: '#d3f3e0'
 }
 
 export default colors

@@ -14,6 +14,7 @@ export default StyleSheet.create({
     bottom: 0
   },
  scrollview: {
-   backgroundColor: 'transparent'
+   backgroundColor: 'transparent',
+   flex:1
  }
 })

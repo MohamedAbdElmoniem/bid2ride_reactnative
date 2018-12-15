@@ -35,6 +35,7 @@ const create = (baseURL = 'https://bid2ride-staging.herokuapp.com/api/') => {
   // way at this level.
   //
   const accountLogin = (data) => api.post('v1/sessions',data)
+  const accountRegisteration = (data) => api.post('v1/registrations',data)
 
   // ------
   // STEP 3
@@ -50,7 +51,8 @@ const create = (baseURL = 'https://bid2ride-staging.herokuapp.com/api/') => {
   //
   return {
     // a list of the API functions from step 2
-    accountLogin
+    accountLogin,
+    accountRegisteration
   }
 }
 

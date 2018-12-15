@@ -13,13 +13,14 @@ export default StyleSheet.create({
     resizeMode: 'contain'
   },
   centered: {
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop:35
   },
   centeredText: {
     color: Colors.gray,
     textAlign: 'center',
     fontWeight: 'bold',
-    fontSize: Fonts.size.small,
+    fontSize: Fonts.size.medium,
     marginVertical: Metrics.baseMarginForText
   },
   marginBottom:{

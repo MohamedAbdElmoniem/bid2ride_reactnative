@@ -10,7 +10,7 @@ import { AccountAuthenticationTypes } from '../Redux/UserAuthenitcationRedux'
 
 /* ------------- Sagas ------------- */
 
-import { accoutLogin } from './UserAuthenticationSagas'
+import { accoutLogin, accoutRegisteration } from './UserAuthenticationSagas'
 
 /* ------------- API ------------- */
 
@@ -23,7 +23,7 @@ const UserAuthenticationApi = DebugConfig.useFixtures ? FixtureAPI : UserAuthent
 
 export default function* root() {
   yield all([
-
+    takeLatest(AccountAuthenticationTypes.ACCOUNT_REGISTERATION_REQUEST, accoutRegisteration, UserAuthenticationApi),
     takeLatest(AccountAuthenticationTypes.ACCOUNT_LOGIN_REQUEST, accoutLogin, UserAuthenticationApi)
   ])
 }

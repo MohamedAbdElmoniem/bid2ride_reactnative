@@ -21,12 +21,13 @@ export default class FullButton extends Component {
   static propTypes = {
     text: PropTypes.string,
     onPress: PropTypes.func,
-    styles: PropTypes.object
+    styles: PropTypes.object,
+    disabled: PropTypes.boolean
   }
 
-  render () {
+  render() {
     return (
-      <TouchableOpacity style={[styles.button, this.props.styles]} onPress={this.props.onPress}>
+      <TouchableOpacity disabled={this.props.disabled} style={this.props.disabled ? [styles.buttonDisabled, this.props.styles] : [styles.buttonActive, this.props.styles]} onPress={this.props.onPress}>
         <Text style={styles.buttonText}>{this.props.text && this.props.text.toUpperCase()}</Text>
       </TouchableOpacity>
     )
