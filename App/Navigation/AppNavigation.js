@@ -15,13 +15,17 @@ const PrimaryNav = createStackNavigator({
   LaunchAppScreen: {
     screen: LaunchAppScreen, navigationOptions: {
       header: null,
+      backTitle: null,
+      headerBackTitle: null
     }
   },
 }, {
     // Default config for all screens
     initialRouteName: 'LaunchAppScreen',
     navigationOptions: {
-      headerStyle: styles.header
+      headerStyle: styles.header,
+      backTitle: null,
+      headerBackTitle: null
     }
   })
 

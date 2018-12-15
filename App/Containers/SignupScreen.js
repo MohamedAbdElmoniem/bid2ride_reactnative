@@ -20,6 +20,7 @@ class SignupScreen extends Component {
     headerStyle: {
       backgroundColor: '#f2a758',
     },
+    backTitle: null,
     headerTintColor: '#fff',
     headerTitleStyle: {
     },
@@ -34,11 +35,19 @@ class SignupScreen extends Component {
       phone_number: '+ ',
       password: '',
       ConfirmPassword: '',
-      spinner: false
+      spinner: false,
+      validated: false
     }
   }
 
-  componentWillReceiveProps(nextProps){
+  componentWillReceiveProps(nextProps) {
+
+    if(!nextProps.isRegisterationError&&!nextProps.isRegisterationFetching&&nextProps.registerationData){
+      alert('registered')
+    }
+    if(nextProps.isRegisterationError){
+      alert('error')
+    }
 
   }
 
@@ -47,7 +56,20 @@ class SignupScreen extends Component {
     this.props.accountRegisterationRequest({ first_name, last_name, phone_number, email, password })
 
   }
+
+  validateRegisterationForm = () => {
+    const { first_name, last_name, email, password, phone_number, ConfirmPassword } = this.state
+    if (first_name && last_name && email && password && phone_number && password.length >= 8) {
+      const pattern = /[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/g;
+      (password === ConfirmPassword) && pattern.test(email) ? this.setState({ validated: true }) : this.setState({ validated: false })
+    } else {
+      this.setState({ validated: false })
+    }
+  }
+
+
   render() {
+
     return (
       <AppBackgroundLight>
         <Spinner
@@ -66,28 +88,44 @@ class SignupScreen extends Component {
             <TextInput
               placeholder='First name'
               style={styles.mainInput}
-              onChangeText={(first_name) => this.setState({ first_name })}
+              onChangeText={(first_name) => this.setState({ first_name }, () => {
+                this.validateRegisterationForm()
+              })}
               value={this.state.first_name}
               clearButtonMode='while-editing'
             />
             <TextInput
               placeholder='Last name'
               style={styles.otherInputs}
-              onChangeText={(last_name) => this.setState({ last_name })}
+              onChangeText={(last_name) => this.setState({ last_name }, () => {
+                this.validateRegisterationForm()
+              })}
               value={this.state.last_name}
               clearButtonMode='while-editing'
             />
             <TextInput
               placeholder='Email'
               style={styles.otherInputs}
-              onChangeText={(email) => this.setState({ email })}
+              onChangeText={(email) => this.setState({ email }, () => {
+                this.validateRegisterationForm()
+              })}
               value={this.state.email}
               clearButtonMode='while-editing'
             />
             <TextInput
               placeholder='+ 1 (202) XXX XXXX'
               style={styles.otherInputs}
-              onChangeText={(phone_number) => this.setState({ phone_number: '+ ' + phone_number })}
+              onChangeText={(phone_number) => {
+                if (phone_number.indexOf('+') > -1) {
+                  this.setState({ phone_number: phone_number }, () => {
+                    this.validateRegisterationForm()
+                  })
+                } else {
+                  this.setState({ phone_number: '+ ' + phone_number }, () => {
+                    this.validateRegisterationForm()
+                  })
+                }
+              }}
               value={this.state.phone_number}
               clearButtonMode='while-editing'
             />
@@ -95,7 +133,9 @@ class SignupScreen extends Component {
               placeholder='Password (8 letters or more)'
               secureTextEntry={true}
               style={styles.otherInputs}
-              onChangeText={(password) => this.setState({ password })}
+              onChangeText={(password) => this.setState({ password }, () => {
+                this.validateRegisterationForm()
+              })}
               value={this.state.password}
               clearButtonMode='while-editing'
             />
@@ -103,7 +143,9 @@ class SignupScreen extends Component {
               placeholder='Confirm Password'
               secureTextEntry={true}
               style={styles.otherInputs}
-              onChangeText={(ConfirmPassword) => this.setState({ ConfirmPassword })}
+              onChangeText={(ConfirmPassword) => this.setState({ ConfirmPassword }, () => {
+                this.validateRegisterationForm()
+              })}
               value={this.state.ConfirmPassword}
               clearButtonMode='while-editing'
             />
@@ -119,7 +161,7 @@ class SignupScreen extends Component {
           </KeyboardAvoidingView>
         </ScrollView>
         <View style={{ flex: 0.365, position: 'relative' }}>
-          <FullButton text="SIGN UP" disabled={false} onPress={() => {
+          <FullButton text="ENTER" disabled={!this.state.validated} onPress={() => {
             this.handleRegisterationRequest()
           }} />
         </View>

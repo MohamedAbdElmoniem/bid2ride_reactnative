@@ -32,7 +32,7 @@ export default StyleSheet.create({
     marginTop: 70,
     marginRight: 40,marginLeft:40,marginBottom:20 
   },
-  otherInputs: { height: 40, borderBottomColor: 'black', borderBottomWidth: 0.5, marginRight: 40,marginLeft:40,marginBottom:20 },
+  otherInputs: { height: 40, borderBottomColor: 'black', borderBottomWidth: 0.5, marginRight: 40,marginLeft:40,marginBottom:12 },
   buttonText: {
     color: Colors.roundedOrangeButton,
     textAlign: 'center',

@@ -20,6 +20,7 @@ export function* accoutRegisteration(api, action) {
     const { registerationRequestData } = action
     // make the call to the api
     const response = yield call(api.accountRegisteration, registerationRequestData)
+    
     debugger
     if (response.ok) {
         const registerationData = response.data

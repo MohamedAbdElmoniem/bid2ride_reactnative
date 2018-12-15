@@ -17,6 +17,7 @@ class LoginScreen extends Component {
     headerStyle: {
       backgroundColor: '#f2a758',
     },
+    headerBackTitle:null,
     headerTintColor: '#fff',
     headerTitleStyle: {
     },
@@ -40,6 +41,11 @@ class LoginScreen extends Component {
 
 
     if (!nextProps.isLoginRequestFetching && !nextProps.isLoginRequestError && nextProps.accountData) {
+      //alert('signed in')
+
+    }
+    if(nextProps.isLoginRequestError){
+     // alert('error')
     }
 
   }
