@@ -1,4 +1,9 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation'
+import DriverFormScreen from '../Containers/DriverFormScreen'
+import TermsScreen from '../Containers/TermsScreen'
+import CardDetailsScreen from '../Containers/CardDetailsScreen'
+import PaymentMethodScreen from '../Containers/PaymentMethodScreen'
+import UpdatePhoneScreen from '../Containers/UpdatePhoneScreen'
 import RequestVerificationScreen from '../Containers/RequestVerificationScreen'
 import ForgotPasswordScreen from '../Containers/ForgotPasswordScreen'
 import SignupScreen from '../Containers/SignupScreen'
@@ -10,6 +15,11 @@ import styles from './Styles/NavigationStyles'
 
 // Manifest of possible screens
 const PrimaryNav = createStackNavigator({
+  DriverFormScreen: { screen: DriverFormScreen },
+  TermsScreen: { screen: TermsScreen },
+  CardDetailsScreen: { screen: CardDetailsScreen },
+  PaymentMethodScreen: { screen: PaymentMethodScreen },
+  UpdatePhoneScreen: { screen: UpdatePhoneScreen },
   RequestVerificationScreen: { screen: RequestVerificationScreen },
   ForgotPasswordScreen: { screen: ForgotPasswordScreen },
   SignupScreen: { screen: SignupScreen },

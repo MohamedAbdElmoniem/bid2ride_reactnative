@@ -21,7 +21,6 @@ export function* accoutRegisteration(api, action) {
     // make the call to the api
     const response = yield call(api.accountRegisteration, registerationRequestData)
     
-    debugger
     if (response.ok) {
         const registerationData = response.data
         // do data conversion here if needed
@@ -36,7 +35,7 @@ export function* forgotPassword(api, action) {
     // make the call to the api
     const response = yield call(api.forgotPassword, email)
     
-    debugger
+    
     if (response.ok) {
         const registerationData = response.data
         // do data conversion here if needed

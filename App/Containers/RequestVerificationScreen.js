@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, View, KeyboardAvoidingView, TextInput, Button } from 'react-native'
+import { ScrollView, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import FullButton from "../Components/FullButton";
 import UserAuthenitcationActions, { UserAuthenticationSelectors } from '../Redux/UserAuthenitcationRedux';
@@ -31,6 +31,17 @@ class RequestVerificationScreen extends Component {
   }
 
   handleEnterVerificationCode = () => {
+    const {navigation} = this.props
+    navigation.navigate('PaymentMethodScreen')
+
+  }
+
+  handleEditPhone = () => {
+    const {navigation} = this.props
+    navigation.navigate('UpdatePhoneScreen')
+  }
+
+  handleResendCode = () => {
 
   }
 
@@ -51,14 +62,25 @@ class RequestVerificationScreen extends Component {
             />
           </KeyboardAvoidingView>
           <View>
-            <Text style={[styles.buttonText, styles.textNavigate]}>RESEND CODE </Text>
-            <Text style={styles.buttonText}>EDIT PHONE NUMBER </Text>
-
+            <TouchableOpacity onPress={() => {
+              this.handleResendCode()
+            }}>
+              <View>
+                <Text style={[styles.buttonText, styles.textNavigate]}>RESEND CODE </Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => {
+              this.handleEditPhone()
+            }}>
+              <View>
+                <Text style={styles.buttonText}>EDIT PHONE NUMBER </Text>
+              </View>
+            </TouchableOpacity>
           </View>
 
         </ScrollView>
         <View style={{}}>
-          <FullButton text="Next" disabled={!this.state.verificationCode} onPress={() => {
+          <FullButton text="Next" disabled={false} onPress={() => {
             this.handleEnterVerificationCode()
           }} />
         </View>
