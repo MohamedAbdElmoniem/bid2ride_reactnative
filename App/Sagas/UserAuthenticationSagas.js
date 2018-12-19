@@ -30,3 +30,18 @@ export function* accoutRegisteration(api, action) {
         yield put(UserAuthenitcationActions.accountRegisterationFailure())
     }
 }
+
+export function* forgotPassword(api, action) {
+    const { email } = action
+    // make the call to the api
+    const response = yield call(api.forgotPassword, email)
+    
+    debugger
+    if (response.ok) {
+        const registerationData = response.data
+        // do data conversion here if needed
+        yield put(UserAuthenitcationActions.accountRegisterationSuccess({status:"sent"}))
+    } else {
+        yield put(UserAuthenitcationActions.accountRegisterationFailure())
+    }
+}

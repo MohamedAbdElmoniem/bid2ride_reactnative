@@ -53,7 +53,7 @@ class LoginScreen extends Component {
 
   handleLoginRequest = () => {
     const { email, password } = this.state
-    this.setState({ spinner: true })
+    //this.setState({ spinner: true })
     this.props.accountLoginRequest({ email, password })
   }
 

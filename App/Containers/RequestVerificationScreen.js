@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, View, KeyboardAvoidingView, TextInput } from 'react-native'
+import { ScrollView, Text, View, KeyboardAvoidingView, TextInput, Button } from 'react-native'
 import { connect } from 'react-redux'
 import FullButton from "../Components/FullButton";
 import UserAuthenitcationActions, { UserAuthenticationSelectors } from '../Redux/UserAuthenitcationRedux';
@@ -7,34 +7,31 @@ import UserAuthenitcationActions, { UserAuthenticationSelectors } from '../Redux
 // import YourActions from '../Redux/YourRedux'
 
 // Styles
-import styles from './Styles/ForgotPasswordScreenStyle'
+import styles from './Styles/RequestVerificationScreenStyle'
 
-class ForgotPasswordScreen extends Component {
+class RequestVerificationScreen extends Component {
 
   static navigationOptions = {
-    title: 'Forgot Password',
+    title: 'Request Verification',
     headerStyle: {
       backgroundColor: '#f2a758',
     },
-    headerBackTitle: null,
     backTitle: null,
+    headerBackTitle: null,
     headerTintColor: '#fff',
     headerTitleStyle: {
     },
   };
 
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      email: ''
+      verificationCode: ''
     }
   }
 
-  handlePasswordReset = () => {
-    const email = {
-      email: this.state.email
-    }
-    this.props.forgotPasswordRequest(email)
+  handleEnterVerificationCode = () => {
+
   }
 
   render() {
@@ -43,20 +40,26 @@ class ForgotPasswordScreen extends Component {
         <ScrollView>
           <KeyboardAvoidingView behavior='position'>
             <View style={styles.textContainer}>
-              <Text style={styles.centeredText}>Enter your email address and we'll send a link to reset your password.</Text>
+              <Text style={styles.centeredText}>Enter verification code here.</Text>
             </View>
             <TextInput
-              placeholder='Your Email'
-              style={styles.emailTextInput}
-              onChangeText={(email) => this.setState({ email })}
-              value={this.state.email}
+              placeholder='e. g. 123456'
+              style={styles.verificationTextInput}
+              onChangeText={(verificationCode) => this.setState({ verificationCode })}
+              value={this.state.verificationCode}
               clearButtonMode='while-editing'
             />
           </KeyboardAvoidingView>
+          <View>
+            <Text style={[styles.buttonText, styles.textNavigate]}>RESEND CODE </Text>
+            <Text style={styles.buttonText}>EDIT PHONE NUMBER </Text>
+
+          </View>
+
         </ScrollView>
         <View style={{}}>
-          <FullButton text="RESET PASSWORD" disabled={!this.state.email} onPress={() => {
-            this.handlePasswordReset()
+          <FullButton text="Next" disabled={!this.state.verificationCode} onPress={() => {
+            this.handleEnterVerificationCode()
           }} />
         </View>
       </View>
@@ -66,14 +69,12 @@ class ForgotPasswordScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
-
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    forgotPasswordRequest: (email) => dispatch(UserAuthenitcationActions.forgotPasswordRequest(email))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ForgotPasswordScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(RequestVerificationScreen)

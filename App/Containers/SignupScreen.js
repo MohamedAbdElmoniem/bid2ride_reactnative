@@ -21,6 +21,7 @@ class SignupScreen extends Component {
       backgroundColor: '#f2a758',
     },
     backTitle: null,
+    headerBackTitle:null,
     headerTintColor: '#fff',
     headerTitleStyle: {
     },
@@ -42,10 +43,10 @@ class SignupScreen extends Component {
 
   componentWillReceiveProps(nextProps) {
 
-    if(!nextProps.isRegisterationError&&!nextProps.isRegisterationFetching&&nextProps.registerationData){
+    if (!nextProps.isRegisterationError && !nextProps.isRegisterationFetching && nextProps.registerationData) {
       alert('registered')
     }
-    if(nextProps.isRegisterationError){
+    if (nextProps.isRegisterationError) {
       alert('error')
     }
 
@@ -53,8 +54,9 @@ class SignupScreen extends Component {
 
   handleRegisterationRequest = () => {
     const { first_name, last_name, phone_number, email, password } = this.state
-    this.props.accountRegisterationRequest({ first_name, last_name, phone_number, email, password })
-
+    // this.props.accountRegisterationRequest({ first_name, last_name, phone_number, email, password })
+    const { navigation } = this.props;
+    navigation.navigate('RequestVerificationScreen')
   }
 
   validateRegisterationForm = () => {
@@ -161,7 +163,7 @@ class SignupScreen extends Component {
           </KeyboardAvoidingView>
         </ScrollView>
         <View style={{ flex: 0.365, position: 'relative' }}>
-          <FullButton text="ENTER" disabled={!this.state.validated} onPress={() => {
+          <FullButton text="ENTER" disabled={false} onPress={() => {
             this.handleRegisterationRequest()
           }} />
         </View>

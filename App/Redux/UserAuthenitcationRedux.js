@@ -10,7 +10,11 @@ const { Types, Creators } = createActions({
 
     accountRegisterationRequest: ['registerationRequestData'],
     accountRegisterationSuccess: ['registerationData'],
-    accountRegisterationFailure: null
+    accountRegisterationFailure: null,
+
+    forgotPasswordRequest: ['email'],
+    forgotPasswordSuccess: [],
+    forgotPasswordFailure: []
 
 })
 
@@ -24,6 +28,8 @@ export const INITIAL_STATE = Immutable({
     registerationData: null,
     fetching: null,
     error: null,
+    sendingForgotPasswordRequest: null,
+    status:null
 })
 
 /* ------------- Selectors ------------- */
@@ -61,6 +67,18 @@ export const failure = (state) =>
 
 export const registerationFailure = (state) =>
     state.merge({ fetching: false, error: true, registerationData: null })
+
+export const forgotPasswordRequest = (state, action) =>
+    state.merge({ sendingForgotPasswordRequest: true, status: null })
+
+export const forgotPasswordSuccess = (state, action) => {
+    const { status } = action
+    return state.merge({ sendingForgotPasswordRequest: false, error: null, status })
+}
+
+export const forgotPasswordFailure = (state) =>
+    state.merge({ sendingForgotPasswordRequest: false, error: true, status: null })
+
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
@@ -69,5 +87,8 @@ export const reducer = createReducer(INITIAL_STATE, {
     [Types.ACCOUNT_LOGIN_FAILURE]: failure,
     [Types.ACCOUNT_REGISTERATION_REQUEST]: registerationRequest,
     [Types.ACCOUNT_REGISTERATION_SUCCESS]: registerationSuccess,
-    [Types.ACCOUNT_REGISTERATION_FAILURE]: registerationFailure
+    [Types.ACCOUNT_REGISTERATION_FAILURE]: registerationFailure,
+    [Types.FORGOT_PASSWORD_REQUEST]: forgotPasswordRequest,
+    [Types.FORGOT_PASSWORD_SUCCESS]: forgotPasswordSuccess,
+    [Types.FORGOT_PASSWORD_FAILURE]: forgotPasswordFailure
 })
