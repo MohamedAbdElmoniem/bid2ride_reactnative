@@ -28,7 +28,7 @@ class DriverFormScreen extends Component {
         <ScrollView style={styles.container}>
           <KeyboardAvoidingView behavior='position'>
             <View style={styles.centered}>
-              <Text style={styles.titleText}>APPLY TO BE A BID2RIDE DRIVER</Text>
+              <Text style={styles.title}>APPLY TO BE A BID2RIDE DRIVER</Text>
             </View>
           </KeyboardAvoidingView>
         </ScrollView>
