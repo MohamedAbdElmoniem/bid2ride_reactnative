@@ -19,6 +19,11 @@ export default StyleSheet.create({
     marginTop:13,
     marginBottom:13
   },
+  mainInput: {
+    height: 40, borderBottomColor: 'black', borderBottomWidth: 0.5,
+    marginTop: 10,
+    marginRight: 10,marginLeft:10,marginBottom:5 
+  },
   centeredText: {
     color: Colors.gray,
     textAlign: 'center',
