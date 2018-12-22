@@ -32,6 +32,8 @@ class PaymentMethodScreen extends Component {
   }
 
   handleBecomeADriver = () => {
+    const {navigation} = this.props;
+    navigation.navigate('TermsScreen')
 
   }
 

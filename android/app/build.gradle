@@ -137,6 +137,9 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-picker')
+    compile project(':react-native-config')
+    compile project(':react-native-awesome-card-io')
     compile project(':react-native-i18n')
     compile project(':react-native-vector-icons')
     compile project(':react-native-gesture-handler')

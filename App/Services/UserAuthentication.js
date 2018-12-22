@@ -48,6 +48,12 @@ const create = (baseURL = 'https://bid2ride-staging.herokuapp.com/api/') => {
     return api.put('v1/phone_number_verifications', data)
   }
 
+  const getTerms = (headersObject) => {
+    api.setHeader('X-User-Email', headersObject.email)
+    api.setHeader('X-User-Token', headersObject.token)
+    return api.get('v1/legal_documents/driver_terms_of_service')
+  }
+
   // ------
   // STEP 3
   // ------
@@ -66,7 +72,8 @@ const create = (baseURL = 'https://bid2ride-staging.herokuapp.com/api/') => {
     accountRegisteration,
     forgotPassword,
     sendVerificationCode,
-    verifyPhoneNumber
+    verifyPhoneNumber,
+    getTerms
   }
 }
 

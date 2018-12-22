@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, KeyboardAvoidingView } from 'react-native'
+import { ScrollView, Text, View, KeyboardAvoidingView, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
@@ -8,13 +8,34 @@ import { connect } from 'react-redux'
 import styles from './Styles/DriverFormScreenStyle'
 
 class DriverFormScreen extends Component {
-  render () {
+
+  static navigationOptions = {
+    title: 'Driver Registeration',
+    headerStyle: {
+      backgroundColor: '#f2a758',
+    },
+    backTitle: null,
+    headerBackTitle: null,
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+    },
+  };
+
+  render() {
     return (
-      <ScrollView style={styles.container}>
-        <KeyboardAvoidingView behavior='position'>
-          <Text>DriverFormScreen</Text>
-        </KeyboardAvoidingView>
-      </ScrollView>
+      <View style={{ flex: 1, flexDirection: 'column' }}>
+
+        <ScrollView style={styles.container}>
+          <KeyboardAvoidingView behavior='position'>
+            <View style={styles.centered}>
+              <Text style={styles.titleText}>APPLY TO BE A BID2RIDE DRIVER</Text>
+            </View>
+          </KeyboardAvoidingView>
+        </ScrollView>
+        <TouchableOpacity style={styles.buttonContainer}>
+          <Text style={{ fontSize: 15, color: "white", margin: 20, fontWeight: 'bold' }}>NEXT</Text>
+        </TouchableOpacity>
+      </View>
     )
   }
 }
