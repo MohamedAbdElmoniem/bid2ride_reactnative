@@ -34,9 +34,19 @@ const create = (baseURL = 'https://bid2ride-staging.herokuapp.com/api/') => {
   // Since we can't hide from that, we embrace it by getting out of the
   // way at this level.
   //
-  const accountLogin = (data) => api.post('v1/sessions',data)
-  const accountRegisteration = (data) => api.post('v1/registrations',data)
-  const forgotPassword = (data) => api.post('v1/passwords',data)
+  const accountLogin = (data) => api.post('v1/sessions', data)
+  const accountRegisteration = (data) => api.post('v1/registrations', data)
+  const forgotPassword = (data) => api.post('v1/passwords', data)
+  const sendVerificationCode = (data, headersObject) => {
+    api.setHeader('X-User-Email', headersObject.email)
+    api.setHeader('X-User-Token', headersObject.token)
+    return api.post('v1/phone_number_verifications')
+  }
+  const verifyPhoneNumber = (data, headersObject) => {
+    api.setHeader('X-User-Email', headersObject.email)
+    api.setHeader('X-User-Token', headersObject.token)
+    return api.put('v1/phone_number_verifications', data)
+  }
 
   // ------
   // STEP 3
@@ -54,7 +64,9 @@ const create = (baseURL = 'https://bid2ride-staging.herokuapp.com/api/') => {
     // a list of the API functions from step 2
     accountLogin,
     accountRegisteration,
-    forgotPassword
+    forgotPassword,
+    sendVerificationCode,
+    verifyPhoneNumber
   }
 }
 

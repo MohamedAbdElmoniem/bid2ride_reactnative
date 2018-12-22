@@ -14,7 +14,15 @@ const { Types, Creators } = createActions({
 
     forgotPasswordRequest: ['email'],
     forgotPasswordSuccess: [],
-    forgotPasswordFailure: []
+    forgotPasswordFailure: [],
+
+    sendVerificationReuqest: [],
+    sendVerificationSuccess: [],
+    sendVerificationFailure: [],
+
+    verifyPhoneReuqest: ['verificationCode'],
+    verifyPhoneSuccess: ['registerationData'],
+    verifyPhoneFailure: ['error']
 
 })
 
@@ -26,10 +34,15 @@ export default Creators
 export const INITIAL_STATE = Immutable({
     accountData: null,
     registerationData: null,
+    loginData: null,
     fetching: null,
     error: null,
     sendingForgotPasswordRequest: null,
-    status:null
+    status: null,
+    verificationCode: null,
+    sendingVerification: null,
+    verifiing: null,
+    verifingSuccess: null,
 })
 
 /* ------------- Selectors ------------- */
@@ -78,6 +91,24 @@ export const forgotPasswordSuccess = (state, action) => {
 
 export const forgotPasswordFailure = (state) =>
     state.merge({ sendingForgotPasswordRequest: false, error: true, status: null })
+
+export const sendVerificationReuqest = (state) =>
+    state.merge({ sendingVerification: true, error: null })
+
+export const sendVerificationSuccess = (state) =>
+    state.merge({ sendingVerification: false, error: null })
+
+export const sendVerificationFailure = (state) =>
+    state.merge({ sendingVerification: false, error: true })
+
+export const verifyPhoneReuqest = (state, { verificationCode }) =>
+    state.merge({ verifiing: true, verificationCode })
+    
+export const verifyPhoneSuccess = (state, { registerationData }) =>
+    state.merge({ verifiing: false, registerationData })
+
+export const verifyPhoneFailure = (state) =>
+    state.merge({ verifiing: false, error: true })
 
 /* ------------- Hookup Reducers To Types ------------- */
 
