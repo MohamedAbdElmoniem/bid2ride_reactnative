@@ -16,11 +16,11 @@ const { Types, Creators } = createActions({
     forgotPasswordSuccess: [],
     forgotPasswordFailure: [],
 
-    sendVerificationReuqest: [],
+    sendVerificationRequest: [],
     sendVerificationSuccess: [],
     sendVerificationFailure: [],
 
-    verifyPhoneReuqest: ['verificationCode'],
+    verifyPhoneRequest: ['verificationCode'],
     verifyPhoneSuccess: ['registerationData'],
     verifyPhoneFailure: ['error']
 
@@ -92,7 +92,7 @@ export const forgotPasswordSuccess = (state, action) => {
 export const forgotPasswordFailure = (state) =>
     state.merge({ sendingForgotPasswordRequest: false, error: true, status: null })
 
-export const sendVerificationReuqest = (state) =>
+export const sendVerificationRequest = (state) =>
     state.merge({ sendingVerification: true, error: null })
 
 export const sendVerificationSuccess = (state) =>
@@ -101,9 +101,9 @@ export const sendVerificationSuccess = (state) =>
 export const sendVerificationFailure = (state) =>
     state.merge({ sendingVerification: false, error: true })
 
-export const verifyPhoneReuqest = (state, { verificationCode }) =>
+export const verifyPhoneRequest = (state, { verificationCode }) =>
     state.merge({ verifiing: true, verificationCode })
-    
+
 export const verifyPhoneSuccess = (state, { registerationData }) =>
     state.merge({ verifiing: false, registerationData })
 
@@ -121,5 +121,11 @@ export const reducer = createReducer(INITIAL_STATE, {
     [Types.ACCOUNT_REGISTERATION_FAILURE]: registerationFailure,
     [Types.FORGOT_PASSWORD_REQUEST]: forgotPasswordRequest,
     [Types.FORGOT_PASSWORD_SUCCESS]: forgotPasswordSuccess,
-    [Types.FORGOT_PASSWORD_FAILURE]: forgotPasswordFailure
+    [Types.FORGOT_PASSWORD_FAILURE]: forgotPasswordFailure,
+    [Types.SEND_VERIFICATION_REQUEST]: sendVerificationRequest,
+    [Types.SEND_VERIFICATION_SUCCESS]: sendVerificationSuccess,
+    [Types.SEND_VERIFICATION_FAILURE]: sendVerificationFailure,
+    [Types.VERIFY_PHONE_REQUEST]:verifyPhoneRequest,
+    [Types.VERIFY_PHONE_SUCCESS]:verifyPhoneSuccess,
+    [Types.VERIFY_PHONE_FAILURE]:verifyPhoneFailure,
 })
