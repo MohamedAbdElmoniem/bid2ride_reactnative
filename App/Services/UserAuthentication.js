@@ -14,7 +14,8 @@ const create = (baseURL = 'https://bid2ride-staging.herokuapp.com/api/') => {
     baseURL,
     // here are some default headers
     headers: {
-      'Cache-Control': 'no-cache'
+      'Cache-Control': 'no-cache',
+      "Content-Type": "application/json"
     },
     // 30 second timeout...
     timeout: 30000
