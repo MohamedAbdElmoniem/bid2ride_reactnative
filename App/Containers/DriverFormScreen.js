@@ -3,6 +3,8 @@ import { ScrollView, Text, View, KeyboardAvoidingView, TouchableOpacity, TextInp
 import { connect } from 'react-redux'
 import Switch from 'react-native-switch-pro'
 import Colors from '../Themes/Colors';
+import { states } from "../Config/USstates";
+import Picker from 'react-native-picker';
 
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
@@ -33,12 +35,37 @@ class DriverFormScreen extends Component {
       address_one: '',
       address_two: '',
       city: '',
-      Zip: ''
+      Zip: '',
+      State: '',
+      dob: '',
+      plate_number: '',
+      car_make: '',
+      car_model: '',
+      car_year: ''
     }
   }
 
   validateRegisterationForm = () => {
 
+  }
+
+  handleOpenStatesPicker = () => {
+    Picker.init({
+      pickerData: states,
+      selectedValue: [0],
+      onPickerConfirm: data => {
+        console.log(data);
+      },
+      onPickerCancel: data => {
+        console.log(data);
+      },
+      onPickerSelect: data => {
+        this.setState({ State: data[0] },()=>{
+          Picker.hide();
+        })
+      }
+    });
+    Picker.show();
   }
 
   render() {
@@ -124,7 +151,75 @@ class DriverFormScreen extends Component {
                 />
               </View>
             </View>
-
+            <View style={{ flex: 1, flexDirection: 'row' }}>
+              <View style={{ flex: 0.5 }}>
+                <TextInput
+                  placeholder='State'
+                  style={styles.mainInput}
+                  onFocus={() => {
+                    this.handleOpenStatesPicker()
+                  }}
+                  onChangeText={(State) => this.setState({ State }, () => {
+                    this.validateRegisterationForm()
+                  })}
+                  value={this.state.State}
+                  clearButtonMode='while-editing'
+                />
+              </View>
+              <View style={{ flex: 0.5 }}>
+                <TextInput
+                  placeholder='Date of Birth'
+                  style={styles.mainInput}
+                  onChangeText={(dob) => this.setState({ dob }, () => {
+                    this.validateRegisterationForm()
+                  })}
+                  value={this.state.dob}
+                  clearButtonMode='while-editing'
+                />
+              </View>
+            </View>
+            <TextInput
+              placeholder='Plate Number'
+              style={styles.mainInput}
+              onChangeText={(plate_number) => this.setState({ plate_number }, () => {
+                this.validateRegisterationForm()
+              })}
+              value={this.state.plate_number}
+              clearButtonMode='while-editing'
+            />
+            <View style={{ flex: 1, flexDirection: 'row' }}>
+              <View style={{ flex: 0.5 }}>
+                <TextInput
+                  placeholder='Car Make'
+                  style={styles.mainInput}
+                  onChangeText={(car_make) => this.setState({ car_make }, () => {
+                    this.validateRegisterationForm()
+                  })}
+                  value={this.state.car_make}
+                  clearButtonMode='while-editing'
+                />
+              </View>
+              <View style={{ flex: 0.5 }}>
+                <TextInput
+                  placeholder='Car Model'
+                  style={styles.mainInput}
+                  onChangeText={(car_model) => this.setState({ car_model }, () => {
+                    this.validateRegisterationForm()
+                  })}
+                  value={this.state.car_model}
+                  clearButtonMode='while-editing'
+                />
+              </View>
+            </View>
+            <TextInput
+              placeholder='Car Year of Registeration'
+              style={styles.mainInput}
+              onChangeText={(car_year) => this.setState({ car_year }, () => {
+                this.validateRegisterationForm()
+              })}
+              value={this.state.car_year}
+              clearButtonMode='while-editing'
+            />
           </KeyboardAvoidingView>
         </ScrollView>
         <TouchableOpacity style={styles.buttonContainer}>
