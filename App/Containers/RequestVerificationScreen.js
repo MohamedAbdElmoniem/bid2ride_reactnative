@@ -79,7 +79,7 @@ class RequestVerificationScreen extends Component {
           </View>
 
         </ScrollView>
-        <View style={{}}>
+        <View>
           <FullButton text="Next" disabled={false} onPress={() => {
             this.handleEnterVerificationCode()
           }} />
