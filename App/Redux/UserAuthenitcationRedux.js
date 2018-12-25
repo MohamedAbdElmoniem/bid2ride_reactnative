@@ -22,7 +22,15 @@ const { Types, Creators } = createActions({
 
     verifyPhoneRequest: ['verificationCode'],
     verifyPhoneSuccess: ['registerationData'],
-    verifyPhoneFailure: ['error']
+    verifyPhoneFailure: ['error'],
+
+    getTermsRequest: [],
+    getTermsSuccess: ['html'],
+    getTermsFailure: [],
+
+    getCarsRequest: [],
+    getCarsSuccess: ['carsData'],
+    getCarsFailure: []
 
 })
 
@@ -43,6 +51,8 @@ export const INITIAL_STATE = Immutable({
     sendingVerification: null,
     verifiing: null,
     verifingSuccess: null,
+    htmlTerms: null,
+    carsList: null
 })
 
 /* ------------- Selectors ------------- */
@@ -51,7 +61,9 @@ export const UserAuthenticationSelectors = {
     selectAccountData: state => state.userAuthenticationState.accountData,
     selectRegisterationData: state => state.userAuthenticationState.registerationData,
     isFetching: state => state.userAuthenticationState.fetching,
-    isError: state => state.userAuthenticationState.error
+    isError: state => state.userAuthenticationState.error,
+    htmlTerms: state => state.userAuthenticationState.htmlTerms,
+    carsList: state => state.userAuthenticationState.carsList
 }
 
 /* ------------- Reducers ------------- */
@@ -110,6 +122,25 @@ export const verifyPhoneSuccess = (state, { registerationData }) =>
 export const verifyPhoneFailure = (state) =>
     state.merge({ verifiing: false, error: true })
 
+
+export const getTermsRequest = (state) =>
+    state.merge({ error: null, htmlTerms: null })
+
+export const getTermsSuccess = (state, action) =>
+    state.merge({ error: false, htmlTerms: action.html })
+
+export const getTermsFailure = (state) =>
+    state.merge({ error: true, htmlTerms: null })
+
+export const getCarsRequest = (state) =>
+    state.merge({ error: null, carsList: null })
+
+export const getCarsSuccess = (state, action) =>
+    state.merge({ error: false, carsList: action.carsData })
+
+export const getCarsFailure = (state) =>
+    state.merge({ error: true, carsList: null })
+
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
@@ -125,7 +156,14 @@ export const reducer = createReducer(INITIAL_STATE, {
     [Types.SEND_VERIFICATION_REQUEST]: sendVerificationRequest,
     [Types.SEND_VERIFICATION_SUCCESS]: sendVerificationSuccess,
     [Types.SEND_VERIFICATION_FAILURE]: sendVerificationFailure,
-    [Types.VERIFY_PHONE_REQUEST]:verifyPhoneRequest,
-    [Types.VERIFY_PHONE_SUCCESS]:verifyPhoneSuccess,
-    [Types.VERIFY_PHONE_FAILURE]:verifyPhoneFailure,
+    [Types.VERIFY_PHONE_REQUEST]: verifyPhoneRequest,
+    [Types.VERIFY_PHONE_SUCCESS]: verifyPhoneSuccess,
+    [Types.VERIFY_PHONE_FAILURE]: verifyPhoneFailure,
+    [Types.GET_TERMS_REQUEST]: getTermsRequest,
+    [Types.GET_TERMS_SUCCESS]: getTermsSuccess,
+    [Types.GET_TERMS_FAILURE]: getTermsFailure,
+    [Types.GET_CARS_REQUEST]: getCarsRequest,
+    [Types.GET_CARS_SUCCESS]: getCarsSuccess,
+    [Types.GET_CARS_FAILURE]: getCarsFailure
+
 })

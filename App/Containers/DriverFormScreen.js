@@ -11,6 +11,7 @@ import Picker from 'react-native-picker';
 
 // Styles
 import styles from './Styles/DriverFormScreenStyle'
+import UserAuthenitcationActions, { UserAuthenticationSelectors } from '../Redux/UserAuthenitcationRedux';
 
 class DriverFormScreen extends Component {
 
@@ -45,6 +46,14 @@ class DriverFormScreen extends Component {
     }
   }
 
+  componentDidMount() {
+    this.props.getCarsRequest()
+  }
+
+  componentWillReceiveProps(nextProps) {
+debugger
+  }
+
   validateRegisterationForm = () => {
 
   }
@@ -60,7 +69,7 @@ class DriverFormScreen extends Component {
         console.log(data);
       },
       onPickerSelect: data => {
-        this.setState({ State: data[0] },()=>{
+        this.setState({ State: data[0] }, () => {
           Picker.hide();
         })
       }
@@ -232,11 +241,13 @@ class DriverFormScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    CarsList: UserAuthenticationSelectors.carsList(state)
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    getCarsRequest: () => dispatch(UserAuthenitcationActions.getCarsRequest())
   }
 }
 

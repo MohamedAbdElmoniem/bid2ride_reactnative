@@ -38,6 +38,7 @@ const create = (baseURL = 'https://bid2ride-staging.herokuapp.com/api/') => {
   const accountLogin = (data) => api.post('v1/sessions', data)
   const accountRegisteration = (data) => api.post('v1/registrations', data)
   const forgotPassword = (data) => api.post('v1/passwords', data)
+  
   const sendVerificationCode = (data, headersObject) => {
     api.setHeader('X-User-Email', headersObject.email)
     api.setHeader('X-User-Token', headersObject.token)
@@ -53,6 +54,12 @@ const create = (baseURL = 'https://bid2ride-staging.herokuapp.com/api/') => {
     api.setHeader('X-User-Email', headersObject.email)
     api.setHeader('X-User-Token', headersObject.token)
     return api.get('v1/legal_documents/driver_terms_of_service')
+  }
+
+  const getCars = (headersObject) => {
+    api.setHeader('X-User-Email', headersObject.email)
+    api.setHeader('X-User-Token', headersObject.token)
+    return api.get('v1/car_makes')
   }
 
   // ------
@@ -74,7 +81,8 @@ const create = (baseURL = 'https://bid2ride-staging.herokuapp.com/api/') => {
     forgotPassword,
     sendVerificationCode,
     verifyPhoneNumber,
-    getTerms
+    getTerms,
+    getCars
   }
 }
 

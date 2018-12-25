@@ -7,13 +7,28 @@ import { connect } from 'react-redux'
 // Styles
 import styles from './Styles/TermsScreenStyle'
 import { Metrics, ApplicationStyles, Colors, Fonts } from '../Themes/'
+import UserAuthenticationActions, { UserAuthenticationSelectors } from "../Redux/UserAuthenitcationRedux";
+import HTML from 'react-native-render-html';
 
 class TermsScreen extends Component {
+
+  componentDidMount() {
+    this.props.getTermsRequest()
+  }
+
+  componentWillReceiveProps(nextProps) {
+
+  }
 
 
   handleNavigationToDriverForm = () => {
     const { navigation } = this.props;
     navigation.navigate('DriverFormScreen')
+  }
+
+  handleNavigateBack = () => {
+    const { navigation } = this.props;
+    navigation.pop()
   }
 
 
@@ -27,12 +42,18 @@ class TermsScreen extends Component {
         </View>
         <ScrollView style={styles.container}>
           <KeyboardAvoidingView behavior='position'>
-            <Text>TermsScreen</Text>
+            <View style={{ margin: 15 }}>
+              <HTML
+                html={this.props.htmlContent ? this.props.htmlContent.html : "<h5>loading...</h5>"}
+              />
+            </View>
           </KeyboardAvoidingView>
         </ScrollView>
         <View style={styles.buttonContainer}>
           <View style={{ flex: 1 }}>
-            <Text style={{ color: 'white', margin: 15 }}>DISAGREE</Text>
+            <Text onPress={() => {
+              this.handleNavigateBack()
+            }} style={{ color: 'white', margin: 15 }}>DISAGREE</Text>
           </View>
           <View style={{ flex: 1 }}>
             <Text onPress={() => {
@@ -47,11 +68,13 @@ class TermsScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    htmlContent: UserAuthenticationSelectors.htmlTerms(state)
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    getTermsRequest: () => dispatch(UserAuthenticationActions.getTermsRequest())
   }
 }
 
