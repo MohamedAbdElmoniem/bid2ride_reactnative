@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, View, KeyboardAvoidingView, TouchableOpacity, TextInput } from 'react-native'
+import { ScrollView, Text, View, KeyboardAvoidingView, TouchableOpacity, Platform, Dimensions, TextInput } from 'react-native'
 import { connect } from 'react-redux'
 import Switch from 'react-native-switch-pro'
 import Colors from '../Themes/Colors';
 import { states } from "../Config/USstates";
 import Picker from 'react-native-picker';
+import Modal from "react-native-modal";
 
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
@@ -12,7 +13,11 @@ import Picker from 'react-native-picker';
 // Styles
 import styles from './Styles/DriverFormScreenStyle'
 import UserAuthenitcationActions, { UserAuthenticationSelectors } from '../Redux/UserAuthenitcationRedux';
-
+import colors from '../Themes/Colors';
+const deviceWidth = Dimensions.get("window").width;
+const deviceHeight = Platform.OS === "ios"
+  ? Dimensions.get("window").height
+  : require("react-native-extra-dimensions-android").get("REAL_WINDOW_HEIGHT");
 class DriverFormScreen extends Component {
 
   static navigationOptions = {
@@ -42,7 +47,9 @@ class DriverFormScreen extends Component {
       plate_number: '',
       car_make: '',
       car_model: '',
-      car_year: ''
+      car_year: '',
+      isModalVisible: false,
+      searchedcar: ''
     }
   }
 
@@ -51,7 +58,7 @@ class DriverFormScreen extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-debugger
+
   }
 
   validateRegisterationForm = () => {
@@ -62,12 +69,6 @@ debugger
     Picker.init({
       pickerData: states,
       selectedValue: [0],
-      onPickerConfirm: data => {
-        console.log(data);
-      },
-      onPickerCancel: data => {
-        console.log(data);
-      },
       onPickerSelect: data => {
         this.setState({ State: data[0] }, () => {
           Picker.hide();
@@ -77,15 +78,38 @@ debugger
     Picker.show();
   }
 
+  _toggleModal = () =>
+    this.setState({ isModalVisible: !this.state.isModalVisible });
+
   render() {
     return (
       <View style={{ flex: 1, flexDirection: 'column' }}>
-
+        <Modal deviceWidth={deviceWidth}
+          deviceHeight={deviceHeight} isVisible={this.state.isModalVisible}>
+          <View style={{ flex: 1, backgroundColor: "white", flexDirection: 'column', marginTop: 20 }}>
+            <View style={{ flex: 0.05, backgroundColor: colors.roundedOrangeButton, flexDirection: 'row' }}>
+              <Text onPress={this._toggleModal} style={{ position: 'absolute', left: 0, marginLeft: 10, marginTop: 10, color: "white" }}>Cancel</Text>
+            </View>
+            <ScrollView style={{ flex: 0.9 }}>
+              <View style={{ flex: 0.1, backgroundColor: 'gray' }}>
+                <TextInput placeholder="Search" style={{margin:10,backgroundColor:"white",borderRadius:6,height:"50%"}} onChangeText={(searchedcar) => { this.setState({ searchedcar }) }} />
+              </View>
+              {this.props.CarsList && this.props.CarsList.map((car, index) => {
+                return (
+                    <Text style={{ position: 'absolute', left: 0, marginLeft: 10, marginTop: 10, color: "black" }}>{car.name}</Text>
+                )
+              })}
+            </ScrollView>
+          </View>
+        </Modal>
         <ScrollView style={styles.container}>
           <KeyboardAvoidingView behavior='position'>
             <View style={styles.centered}>
               <Text style={styles.title}>APPLY TO BE A BID2RIDE DRIVER</Text>
             </View>
+            <TouchableOpacity onPress={this._toggleModal}>
+              <Text>Show Modal</Text>
+            </TouchableOpacity>
             <TextInput
               placeholder='First name'
               style={styles.mainInput}

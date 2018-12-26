@@ -9072,6 +9072,11 @@ react-native-device-info@0.11.0:
   resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-0.11.0.tgz#e96dd0e3f8a7d7e3022c1f441f51fa912fdc7444"
   integrity sha1-6W3Q4/in1+MCLB9EH1H6kS/cdEQ=
 
+react-native-extra-dimensions-android@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-extra-dimensions-android/-/react-native-extra-dimensions-android-1.0.0.tgz#5575224ad0516293f1ee861ee81a7d05eb5aabfd"
+  integrity sha512-+N8a+vAd1+PDR9XuKIpMV/jdx/zNb8kXuwcugcF/Lxb2RV0DIekmu+CQJXEHBEdCWXAsypnITw+wRiiKgC3hcw==
+
 react-native-flip-card@^3.4.1:
   version "3.5.2"
   resolved "https://registry.yarnpkg.com/react-native-flip-card/-/react-native-flip-card-3.5.2.tgz#6563f4a6d95b999c21e82deec9b2f502175847d6"
