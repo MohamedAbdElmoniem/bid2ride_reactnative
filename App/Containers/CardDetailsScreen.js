@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, KeyboardAvoidingView } from 'react-native'
+import { ScrollView, Text,View, KeyboardAvoidingView } from 'react-native'
 import { connect } from 'react-redux'
+import { CardIOView, CardIOUtilities } from 'react-native-awesome-card-io';
+
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 
@@ -21,14 +23,23 @@ class CardDetailsScreen extends Component {
     },
   };
 
+  componentWillMount() {
+    CardIOUtilities.preload();
+  }
+
+  didScanCard = (card) => {
+    // the scanned card
+  }
+
 
   render () {
     return (
-      <ScrollView style={styles.container}>
-        <KeyboardAvoidingView behavior='position'>
-          <Text></Text>
-        </KeyboardAvoidingView>
-      </ScrollView>
+      <View>
+      <CardIOView
+        didScanCard={this.didScanCard}
+        style={{ flex: 1 }}
+      />
+    </View>
     )
   }
 }

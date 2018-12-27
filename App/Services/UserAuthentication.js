@@ -14,7 +14,8 @@ const create = (baseURL = 'https://bid2ride-staging.herokuapp.com/api/') => {
     baseURL,
     // here are some default headers
     headers: {
-      'Cache-Control': 'no-cache'
+      'Cache-Control': 'no-cache',
+      "Content-Type": "application/json"
     },
     // 30 second timeout...
     timeout: 30000
@@ -34,9 +35,38 @@ const create = (baseURL = 'https://bid2ride-staging.herokuapp.com/api/') => {
   // Since we can't hide from that, we embrace it by getting out of the
   // way at this level.
   //
-  const accountLogin = (data) => api.post('v1/sessions',data)
-  const accountRegisteration = (data) => api.post('v1/registrations',data)
-  const forgotPassword = (data) => api.post('v1/passwords',data)
+  const accountLogin = (data) => api.post('v1/sessions', data)
+  const accountRegisteration = (data) => api.post('v1/registrations', data)
+  const forgotPassword = (data) => api.post('v1/passwords', data)
+  
+  const sendVerificationCode = (data, headersObject) => {
+    api.setHeader('X-User-Email', headersObject.email)
+    api.setHeader('X-User-Token', headersObject.token)
+    return api.post('v1/phone_number_verifications')
+  }
+  const verifyPhoneNumber = (data, headersObject) => {
+    api.setHeader('X-User-Email', headersObject.email)
+    api.setHeader('X-User-Token', headersObject.token)
+    return api.put('v1/phone_number_verifications', data)
+  }
+
+  const getTerms = (headersObject) => {
+    api.setHeader('X-User-Email', headersObject.email)
+    api.setHeader('X-User-Token', headersObject.token)
+    return api.get('v1/legal_documents/driver_terms_of_service')
+  }
+
+  const getCars = (headersObject) => {
+    api.setHeader('X-User-Email', headersObject.email)
+    api.setHeader('X-User-Token', headersObject.token)
+    return api.get('v1/car_makes')
+  }
+
+  const getCarModel = (headersObject,carId) => {
+    api.setHeader('X-User-Email', headersObject.email)
+    api.setHeader('X-User-Token', headersObject.token)
+    return api.get(`v1/car_models?car_make_id=${carId}`)
+  }
 
   // ------
   // STEP 3
@@ -54,7 +84,12 @@ const create = (baseURL = 'https://bid2ride-staging.herokuapp.com/api/') => {
     // a list of the API functions from step 2
     accountLogin,
     accountRegisteration,
-    forgotPassword
+    forgotPassword,
+    sendVerificationCode,
+    verifyPhoneNumber,
+    getTerms,
+    getCars,
+    getCarModel
   }
 }
 
