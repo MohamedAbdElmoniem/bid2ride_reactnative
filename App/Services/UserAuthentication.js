@@ -62,6 +62,12 @@ const create = (baseURL = 'https://bid2ride-staging.herokuapp.com/api/') => {
     return api.get('v1/car_makes')
   }
 
+  const getCarModel = (headersObject,carId) => {
+    api.setHeader('X-User-Email', headersObject.email)
+    api.setHeader('X-User-Token', headersObject.token)
+    return api.get(`v1/car_models?car_make_id=${carId}`)
+  }
+
   // ------
   // STEP 3
   // ------
@@ -82,7 +88,8 @@ const create = (baseURL = 'https://bid2ride-staging.herokuapp.com/api/') => {
     sendVerificationCode,
     verifyPhoneNumber,
     getTerms,
-    getCars
+    getCars,
+    getCarModel
   }
 }
 

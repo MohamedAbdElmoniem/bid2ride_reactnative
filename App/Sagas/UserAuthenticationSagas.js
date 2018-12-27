@@ -70,3 +70,15 @@ export function* getCars(api, action) {
         yield put(UserAuthenitcationActions.getCarsFailure())
     }
 }
+
+export function* getCarModel(api, { car }) {
+    // make the call to the api
+    const response = yield call(api.getCarModel, { email: "eslam@fdsf.com", token: "FsmBe8TZ4hxf9GCgC_NW" }, car.id)
+    if (response.ok) {
+        const carModelData = response.data
+        // do data conversion here if needed
+        yield put(UserAuthenitcationActions.getCarModelSuccess(carModelData))
+    } else {
+        yield put(UserAuthenitcationActions.getCarModelFailure())
+    }
+}

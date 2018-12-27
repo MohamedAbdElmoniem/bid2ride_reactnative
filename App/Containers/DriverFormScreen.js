@@ -48,7 +48,8 @@ class DriverFormScreen extends Component {
       car_make: '',
       car_model: '',
       car_year: '',
-      isModalVisible: false,
+      isModalVisible_carMake: false,
+      listToShow: [],
       searchedcar: ''
     }
   }
@@ -65,6 +66,14 @@ class DriverFormScreen extends Component {
 
   }
 
+  handleCarSelect = (car) => {
+    // car select model request
+    if(this.state.listToShow==='CarsList'){
+      this.props.getCarModelRequest(car)
+    }
+    this.setState({ isModalVisible_carMake: false })
+  }
+
   handleOpenStatesPicker = () => {
     Picker.init({
       pickerData: states,
@@ -79,24 +88,28 @@ class DriverFormScreen extends Component {
   }
 
   _toggleModal = () =>
-    this.setState({ isModalVisible: !this.state.isModalVisible });
+    this.setState({ isModalVisible_carMake: false });
 
   render() {
+    debugger
+    const { listToShow } = this.state
     return (
       <View style={{ flex: 1, flexDirection: 'column' }}>
         <Modal deviceWidth={deviceWidth}
-          deviceHeight={deviceHeight} isVisible={this.state.isModalVisible}>
+          deviceHeight={deviceHeight} isVisible={this.state.isModalVisible_carMake}>
           <View style={{ flex: 1, backgroundColor: "white", flexDirection: 'column', marginTop: 20 }}>
             <View style={{ flex: 0.05, backgroundColor: colors.roundedOrangeButton, flexDirection: 'row' }}>
               <Text onPress={this._toggleModal} style={{ position: 'absolute', left: 0, marginLeft: 10, marginTop: 10, color: "white" }}>Cancel</Text>
             </View>
-            <ScrollView style={{ flex: 0.9 }}>
+            <ScrollView style={{ flex: 0.9, flexDirection: 'column' }}>
               <View style={{ flex: 0.1, backgroundColor: 'gray' }}>
-                <TextInput placeholder="Search" style={{margin:10,backgroundColor:"white",borderRadius:6,height:"50%"}} onChangeText={(searchedcar) => { this.setState({ searchedcar }) }} />
+                <TextInput placeholder="Search" style={{ margin: 10, backgroundColor: "white", borderRadius: 6, height: "50%" }} onChangeText={(searchedcar) => { this.setState({ searchedcar }) }} />
               </View>
-              {this.props.CarsList && this.props.CarsList.map((car, index) => {
+              {this.props[listToShow] && this.props[listToShow].map((car, index) => {
                 return (
-                    <Text style={{ position: 'absolute', left: 0, marginLeft: 10, marginTop: 10, color: "black" }}>{car.name}</Text>
+                  <TouchableOpacity style={{ margin: 10, borderBottomColor: 'black', borderBottomWidth: 0.2 }} onPress={() => { this.handleCarSelect(car) }}>
+                    <Text style={{ margin: 5 }} style={{ fontSize: 15 }}>{car.name}</Text>
+                  </TouchableOpacity>
                 )
               })}
             </ScrollView>
@@ -107,9 +120,6 @@ class DriverFormScreen extends Component {
             <View style={styles.centered}>
               <Text style={styles.title}>APPLY TO BE A BID2RIDE DRIVER</Text>
             </View>
-            <TouchableOpacity onPress={this._toggleModal}>
-              <Text>Show Modal</Text>
-            </TouchableOpacity>
             <TextInput
               placeholder='First name'
               style={styles.mainInput}
@@ -225,6 +235,9 @@ class DriverFormScreen extends Component {
                 <TextInput
                   placeholder='Car Make'
                   style={styles.mainInput}
+                  onFocus={() => {
+                    this.setState({ listToShow: 'CarsList',isModalVisible_carMake: true })
+                  }}
                   onChangeText={(car_make) => this.setState({ car_make }, () => {
                     this.validateRegisterationForm()
                   })}
@@ -239,6 +252,9 @@ class DriverFormScreen extends Component {
                   onChangeText={(car_model) => this.setState({ car_model }, () => {
                     this.validateRegisterationForm()
                   })}
+                  onFocus={() => {
+                    this.setState({ listToShow: 'CarModelList', isModalVisible_carMake: true })
+                  }}
                   value={this.state.car_model}
                   clearButtonMode='while-editing'
                 />
@@ -265,13 +281,15 @@ class DriverFormScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    CarsList: UserAuthenticationSelectors.carsList(state)
+    CarsList: UserAuthenticationSelectors.carsList(state),
+    CarModelList: UserAuthenticationSelectors.carModelList(state)
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getCarsRequest: () => dispatch(UserAuthenitcationActions.getCarsRequest())
+    getCarsRequest: () => dispatch(UserAuthenitcationActions.getCarsRequest()),
+    getCarModelRequest: (car) => dispatch(UserAuthenitcationActions.getCarModelRequest(car))
   }
 }
 

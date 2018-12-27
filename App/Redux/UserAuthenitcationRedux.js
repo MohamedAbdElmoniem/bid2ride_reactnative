@@ -30,7 +30,11 @@ const { Types, Creators } = createActions({
 
     getCarsRequest: [],
     getCarsSuccess: ['carsData'],
-    getCarsFailure: []
+    getCarsFailure: [],
+
+    getCarModelRequest: ['car'],
+    getCarModelSuccess: ['carModelData'],
+    getCarModelFailure: []
 
 })
 
@@ -52,7 +56,8 @@ export const INITIAL_STATE = Immutable({
     verifiing: null,
     verifingSuccess: null,
     htmlTerms: null,
-    carsList: null
+    carsList: null,
+    carModelList: null
 })
 
 /* ------------- Selectors ------------- */
@@ -63,7 +68,8 @@ export const UserAuthenticationSelectors = {
     isFetching: state => state.userAuthenticationState.fetching,
     isError: state => state.userAuthenticationState.error,
     htmlTerms: state => state.userAuthenticationState.htmlTerms,
-    carsList: state => state.userAuthenticationState.carsList
+    carsList: state => state.userAuthenticationState.carsList,
+    carModelList: state => state.userAuthenticationState.carModelList
 }
 
 /* ------------- Reducers ------------- */
@@ -141,6 +147,15 @@ export const getCarsSuccess = (state, action) =>
 export const getCarsFailure = (state) =>
     state.merge({ error: true, carsList: null })
 
+
+export const getCarModelRequest = (state, { carModel }) =>
+    state.merge({ error: null, carModelList: null, fetching: true })
+
+export const getCarModelSuccess = (state, { carModelData }) =>
+    state.merge({ error: false, carModelList: carModelData, fetching: false })
+
+export const getCarModelFailure = (state) =>
+    state.merge({ error: true, carModelList: null, fetching: false })
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
@@ -164,6 +179,9 @@ export const reducer = createReducer(INITIAL_STATE, {
     [Types.GET_TERMS_FAILURE]: getTermsFailure,
     [Types.GET_CARS_REQUEST]: getCarsRequest,
     [Types.GET_CARS_SUCCESS]: getCarsSuccess,
-    [Types.GET_CARS_FAILURE]: getCarsFailure
+    [Types.GET_CARS_FAILURE]: getCarsFailure,
+    [Types.GET_CAR_MODEL_REQUEST]: getCarModelRequest,
+    [Types.GET_CAR_MODEL_SUCCESS]: getCarModelSuccess,
+    [Types.GET_CAR_MODEL_FAILURE]: getCarModelFailure
 
 })
