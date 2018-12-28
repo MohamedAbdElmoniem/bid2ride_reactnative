@@ -18,6 +18,16 @@ const deviceWidth = Dimensions.get("window").width;
 const deviceHeight = Platform.OS === "ios"
   ? Dimensions.get("window").height
   : require("react-native-extra-dimensions-android").get("REAL_WINDOW_HEIGHT");
+
+const GET_YEARS = () => {
+  var CurrentYear = new Date().getFullYear()
+  let yearsArray = [];
+  for (let year = 1960; year <= CurrentYear; ++year) {
+    yearsArray.push(year)
+  }
+  return yearsArray.reverse()
+}
+
 class DriverFormScreen extends Component {
 
   static navigationOptions = {
@@ -68,10 +78,14 @@ class DriverFormScreen extends Component {
 
   handleCarSelect = (car) => {
     // car select model request
-    if(this.state.listToShow==='CarsList'){
+    if (this.state.listToShow === 'CarsList') {
       this.props.getCarModelRequest(car)
+      this.setState({ car_make: car.name, isModalVisible_carMake: false })
+
     }
-    this.setState({ isModalVisible_carMake: false })
+    else {
+      this.setState({ car_model: car.name, isModalVisible_carMake: false })
+    }
   }
 
   handleOpenStatesPicker = () => {
@@ -87,11 +101,31 @@ class DriverFormScreen extends Component {
     Picker.show();
   }
 
+  handleOpenYearsPicker = () => {
+    Picker.init({
+      pickerData: GET_YEARS(),
+      selectedValue: [0],
+      pickerConfirmBtnText: "",
+      pickerCancelBtnText: "",
+      onPickerSelect: data => {
+        this.setState({ car_year: data[0] }, () => {
+          Picker.hide();
+        })
+      }
+    });
+    Picker.show();
+  }
+
+  handleFinishRegisteration = () => {
+    const {state} = this;
+debugger
+  }
+
   _toggleModal = () =>
     this.setState({ isModalVisible_carMake: false });
 
   render() {
-    debugger
+
     const { listToShow } = this.state
     return (
       <View style={{ flex: 1, flexDirection: 'column' }}>
@@ -102,7 +136,7 @@ class DriverFormScreen extends Component {
               <Text onPress={this._toggleModal} style={{ position: 'absolute', left: 0, marginLeft: 10, marginTop: 10, color: "white" }}>Cancel</Text>
             </View>
             <ScrollView style={{ flex: 0.9, flexDirection: 'column' }}>
-              <View style={{ flex: 0.1, backgroundColor: 'gray' }}>
+              <View style={{ flex: 0.2, backgroundColor: 'gray' }}>
                 <TextInput placeholder="Search" style={{ margin: 10, backgroundColor: "white", borderRadius: 6, height: "50%" }} onChangeText={(searchedcar) => { this.setState({ searchedcar }) }} />
               </View>
               {this.props[listToShow] && this.props[listToShow].map((car, index) => {
@@ -236,7 +270,7 @@ class DriverFormScreen extends Component {
                   placeholder='Car Make'
                   style={styles.mainInput}
                   onFocus={() => {
-                    this.setState({ listToShow: 'CarsList',isModalVisible_carMake: true })
+                    this.setState({ listToShow: 'CarsList', isModalVisible_carMake: true })
                   }}
                   onChangeText={(car_make) => this.setState({ car_make }, () => {
                     this.validateRegisterationForm()
@@ -263,15 +297,17 @@ class DriverFormScreen extends Component {
             <TextInput
               placeholder='Car Year of Registeration'
               style={styles.mainInput}
-              onChangeText={(car_year) => this.setState({ car_year }, () => {
-                this.validateRegisterationForm()
-              })}
-              value={this.state.car_year}
+              value={this.state.car_year.toString()}
+              onFocus={() => {
+                this.handleOpenYearsPicker()
+              }}
               clearButtonMode='while-editing'
             />
           </KeyboardAvoidingView>
         </ScrollView>
-        <TouchableOpacity style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.buttonContainer} onPress={() => {
+          this.handleFinishRegisteration()
+        }}>
           <Text style={{ fontSize: 15, color: "white", margin: 20, fontWeight: 'bold' }}>NEXT</Text>
         </TouchableOpacity>
       </View>

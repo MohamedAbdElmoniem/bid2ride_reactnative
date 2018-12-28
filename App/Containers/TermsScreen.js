@@ -12,6 +12,18 @@ import HTML from 'react-native-render-html';
 
 class TermsScreen extends Component {
 
+  static navigationOptions = {
+    title: '',
+    headerStyle: {
+      backgroundColor: '#f2a758',
+    },
+    headerBackTitle:null,
+    backTitle: null,
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+    },
+  };
+
   componentDidMount() {
     this.props.getTermsRequest()
   }
