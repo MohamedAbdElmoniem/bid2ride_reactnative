@@ -91,7 +91,7 @@ class DriverFormScreen extends Component {
 
   handleOpenStatesPicker = () => {
     Picker.init({
-      pickerData: states,
+      pickerData: states.map(val => val.name),
       selectedValue: [0],
       onPickerSelect: data => {
         this.setState({ State: data[0] }, () => {
@@ -118,8 +118,8 @@ class DriverFormScreen extends Component {
   }
 
   handleFinishRegisteration = () => {
-    const { state } = this;
-    debugger
+    const { navigation } = this.props;
+    navigation.navigate('DriverRegisterationScreen')
   }
 
   _showDatePicker = () => {

@@ -1,4 +1,5 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation'
+import DriverRegisterationScreen from '../Containers/DriverRegisterationScreen'
 import BackgroundCheckScreen from '../Containers/BackgroundCheckScreen'
 import FcraScreen from '../Containers/FcraScreen'
 import PassengerHomeScreen from '../Containers/PassengerHomeScreen'
@@ -18,6 +19,7 @@ import styles from './Styles/NavigationStyles'
 
 // Manifest of possible screens
 const PrimaryNav = createStackNavigator({
+  DriverRegisterationScreen: { screen: DriverRegisterationScreen },
   BackgroundCheckScreen: { screen: BackgroundCheckScreen },
   FcraScreen: { screen: FcraScreen },
   PassengerHomeScreen: { screen: PassengerHomeScreen },
