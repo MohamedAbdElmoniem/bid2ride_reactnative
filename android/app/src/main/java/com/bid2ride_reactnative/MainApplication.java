@@ -3,6 +3,8 @@ package com.bid2ride_reactnative;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.imagepicker.ImagePickerPackage;
+import ca.jaysoo.extradimensions.ExtraDimensionsPackage;
 import com.beefe.picker.PickerViewPackage;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import com.cardio.RNCardIOPackage;
@@ -30,6 +32,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ImagePickerPackage(),
+            new ExtraDimensionsPackage(),
             new PickerViewPackage(),
             new ReactNativeConfigPackage(),
             new RNCardIOPackage(),
