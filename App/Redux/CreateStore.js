@@ -5,6 +5,7 @@ import Config from '../Config/DebugConfig'
 import createSagaMiddleware from 'redux-saga'
 import ScreenTracking from './ScreenTrackingMiddleware'
 import { createReactNavigationReduxMiddleware } from 'react-navigation-redux-helpers'
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 // creates the store
 export default (rootReducer, rootSaga) => {
@@ -25,7 +26,8 @@ export default (rootReducer, rootSaga) => {
 
   /* ------------- Saga Middleware ------------- */
 
-  const sagaMonitor = Config.useReactotron ? console.tron.createSagaMonitor() : null
+  //const sagaMonitor = Config.useReactotron ? console.tron.createSagaMonitor() : null
+  const sagaMonitor = window["__SAGA_MONITOR_EXTENSION__"]
   const sagaMiddleware = createSagaMiddleware({ sagaMonitor })
   middleware.push(sagaMiddleware)
 
@@ -35,7 +37,7 @@ export default (rootReducer, rootSaga) => {
 
   // if Reactotron is enabled (default for __DEV__), we'll create the store through Reactotron
   const createAppropriateStore = Config.useReactotron ? console.tron.createStore : createStore
-  const store = createAppropriateStore(rootReducer, compose(...enhancers))
+  const store = createAppropriateStore(rootReducer, composeWithDevTools(compose(...enhancers)))
 
   // configure persistStore and check reducer version number
   if (ReduxPersist.active) {
