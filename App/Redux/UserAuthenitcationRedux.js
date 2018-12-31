@@ -34,7 +34,11 @@ const { Types, Creators } = createActions({
 
     getCarModelRequest: ['car'],
     getCarModelSuccess: ['carModelData'],
-    getCarModelFailure: []
+    getCarModelFailure: [],
+
+    getFcraRequest: [],
+    getFcraSuccess: ['fcraHtml'],
+    getFcraFailure: []
 
 })
 
@@ -57,7 +61,8 @@ export const INITIAL_STATE = Immutable({
     verifingSuccess: null,
     htmlTerms: null,
     carsList: null,
-    carModelList: null
+    carModelList: null,
+    fcraHtml: null
 })
 
 /* ------------- Selectors ------------- */
@@ -69,7 +74,8 @@ export const UserAuthenticationSelectors = {
     isError: state => state.userAuthenticationState.error,
     htmlTerms: state => state.userAuthenticationState.htmlTerms,
     carsList: state => state.userAuthenticationState.carsList,
-    carModelList: state => state.userAuthenticationState.carModelList
+    carModelList: state => state.userAuthenticationState.carModelList,
+    fcraHtml: state => state.userAuthenticationState.fcraHtml
 }
 
 /* ------------- Reducers ------------- */
@@ -156,6 +162,15 @@ export const getCarModelSuccess = (state, { carModelData }) =>
 
 export const getCarModelFailure = (state) =>
     state.merge({ error: true, carModelList: null, fetching: false })
+
+export const getFcraRequest = (state) =>
+    state.merge({ error: null, fcraHtml: null, fetching: true })
+
+export const getFcraSuccess = (state, { fcraHtml }) =>
+    state.merge({ error: false, fcraHtml: fcraHtml, fetching: false })
+
+export const getFcraFailure = (state) =>
+    state.merge({ error: true, fcraHtml: null, fetching: false })
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
@@ -182,6 +197,8 @@ export const reducer = createReducer(INITIAL_STATE, {
     [Types.GET_CARS_FAILURE]: getCarsFailure,
     [Types.GET_CAR_MODEL_REQUEST]: getCarModelRequest,
     [Types.GET_CAR_MODEL_SUCCESS]: getCarModelSuccess,
-    [Types.GET_CAR_MODEL_FAILURE]: getCarModelFailure
-
+    [Types.GET_CAR_MODEL_FAILURE]: getCarModelFailure,
+    [Types.GET_FCRA_REQUEST]: getFcraRequest,
+    [Types.GET_FCRA_SUCCESS]: getFcraSuccess,
+    [Types.GET_FCRA_FAILURE]: getFcraFailure
 })

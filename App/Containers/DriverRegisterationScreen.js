@@ -55,7 +55,8 @@ class DriverRegisterationScreen extends Component {
   }
 
   handleNavigateToFcra = () => {
-
+    const { navigation } = this.props;
+    navigation.navigate('FcraScreen')
   }
 
 

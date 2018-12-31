@@ -9265,6 +9265,13 @@ react-native-modalbox@^1.6.0:
     create-react-class "^15.6.0"
     prop-types "^15.5.10"
 
+react-native-modest-checkbox@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-modest-checkbox/-/react-native-modest-checkbox-3.1.0.tgz#b16d253585513c0218426b46e5d088f37039a6cd"
+  integrity sha512-RZqNRhjBwz6DMwrKTMH9wMyXJ3ckiusjR8bP32d4bhms/xQI/MVVx+CMM7sKJQ+q5XOeQo7SVwUCsWHscuXWNA==
+  dependencies:
+    prop-types "^15.6.1"
+
 react-native-picker@^4.3.7:
   version "4.3.7"
   resolved "https://registry.yarnpkg.com/react-native-picker/-/react-native-picker-4.3.7.tgz#9842e8c62ff0d8b676e9514d9f9172413c0518a8"

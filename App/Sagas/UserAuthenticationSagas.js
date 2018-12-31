@@ -82,3 +82,16 @@ export function* getCarModel(api, { car }) {
         yield put(UserAuthenitcationActions.getCarModelFailure())
     }
 }
+
+export function* getFcra(api, action) {
+    // make the call to the api
+    const response = yield call(api.getFcraHtml, { email: "eslam@fdsf.com", token: "FsmBe8TZ4hxf9GCgC_NW" })
+
+    if (response.ok) {
+        const html = response.data
+        // do data conversion here if needed
+        yield put(UserAuthenitcationActions.getFcraSuccess(html))
+    } else {
+        yield put(UserAuthenitcationActions.getFcraFailure())
+    }
+}
