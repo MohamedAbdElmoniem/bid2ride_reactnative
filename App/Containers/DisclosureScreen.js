@@ -6,11 +6,14 @@ import UserAuthenitcationActions, { UserAuthenticationSelectors } from '../Redux
 // import YourActions from '../Redux/YourRedux'
 import HTML from 'react-native-render-html';
 import Checkbox from 'react-native-modest-checkbox'
-import { checkBoxTextFcra } from "../Config/DriverRegisterationText";
-// Styles
-import styles from './Styles/FcraScreenStyle'
+import { checkBoxTextDisclosure } from "../Config/DriverRegisterationText";
+// Add Actions - replace 'Your' with whatever your reducer is called :)
+// import YourActions from '../Redux/YourRedux'
 
-class FcraScreen extends Component {
+// Styles
+import styles from './Styles/DisclosureScreenStyle'
+
+class DisclosureScreen extends Component {
 
   static navigationOptions = {
     title: 'Driver Registeration',
@@ -24,6 +27,7 @@ class FcraScreen extends Component {
     }
   }
 
+
   constructor(props) {
     super(props);
     this.state = {
@@ -32,7 +36,7 @@ class FcraScreen extends Component {
   }
 
   componentDidMount() {
-    this.props.getFcraRequest()
+    this.props.getDisclosureRequest()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -44,16 +48,16 @@ class FcraScreen extends Component {
       <View style={styles.container}>
         <ScrollView style={{ flex: 0.9, flexDirection: 'column', margin: 15 }}>
           <View style={{ alignItems: 'center' }}>
-            <Text style={{ fontSize: 17, color: "black" }}>YOUR RIGHT UNDER FRCA</Text>
+            <Text style={{ fontSize: 17, color: "black" }}>DISCLOSURE REGARDING BACKGROUND INVESTEGATION</Text>
           </View>
           <KeyboardAvoidingView behavior='position'>
             <HTML
-              html={this.props.fcraHtml ? this.props.fcraHtml.html : "<h5>loading...</h5>"}
+              html={this.props.disclosureHtml ? this.props.disclosureHtml.html : "<h5>loading...</h5>"}
             />
           </KeyboardAvoidingView>
           <View>
             <Checkbox
-              label={checkBoxTextFcra}
+              label={checkBoxTextDisclosure}
               checked={this.state.checked}
               labelStyle={{ flexWrap: 'wrap' }}
               numberOfLabelLines={5}
@@ -64,13 +68,13 @@ class FcraScreen extends Component {
         {this.state.checked ? <View style={{ flex: 0.1 }}>
           <TouchableOpacity style={styles.nextButtonActiveStyle} onPress={() => {
             const { navigation } = this.props;
-            navigation.navigate('DisclosureScreen')
+            navigation.navigate('AuthorizationScreen')
           }}>
             <Text style={{ color: 'white', fontSize: 15 }}>NEXT</Text>
           </TouchableOpacity>
         </View> : <View style={{ flex: 0.1 }}>
             <TouchableOpacity style={styles.nextButtonInActiveStyle}>
-              <Text style={{ color: 'white', fontSize: 15 }}>NEXT</Text>
+              <Text style={{ color: 'white', fontSize: 15,textAlign:'center' }}>NEXT</Text>
             </TouchableOpacity>
           </View>}
 
@@ -81,14 +85,14 @@ class FcraScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    fcraHtml: UserAuthenticationSelectors.fcraHtml(state)
+    disclosureHtml:UserAuthenticationSelectors.disclosureHtml(state)
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getFcraRequest: () => dispatch(UserAuthenitcationActions.getFcraRequest())
+    getDisclosureRequest: () => dispatch(UserAuthenitcationActions.getDisclosureRequest())
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(FcraScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(DisclosureScreen)

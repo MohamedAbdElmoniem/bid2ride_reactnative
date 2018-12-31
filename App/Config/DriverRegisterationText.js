@@ -1,2 +1,3 @@
 export const text = "Bid2Ride has engaged Checkr, Inc. to obtain a consumer report and/or investigate a consumer report for employment purposes. Checkr Inc. will provide a background investigations as a pre-condition of your engagement with a Company and in compliance with federal and state employment laws. if you have any questions related to the screening process, please contact us at support@checkr.com"
 export const checkBoxTextFcra = 'I acknowledged receipt of the Summary of Your Rights Under the Fair Credit Reporting Act (FCRA) and certify that i have read and understand this document'
+export const checkBoxTextDisclosure = 'I acknowledged receipt of the Disclosure Regarding Background Investigation and certify that I have read and understand this document'

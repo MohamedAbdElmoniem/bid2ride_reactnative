@@ -1,4 +1,6 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation'
+import AuthorizationScreen from '../Containers/AuthorizationScreen'
+import DisclosureScreen from '../Containers/DisclosureScreen'
 import DriverBankAccountScreen from '../Containers/DriverBankAccountScreen'
 import DriverRegisterationScreen from '../Containers/DriverRegisterationScreen'
 import BackgroundCheckScreen from '../Containers/BackgroundCheckScreen'
@@ -20,6 +22,8 @@ import styles from './Styles/NavigationStyles'
 
 // Manifest of possible screens
 const PrimaryNav = createStackNavigator({
+  AuthorizationScreen: { screen: AuthorizationScreen },
+  DisclosureScreen: { screen: DisclosureScreen },
   DriverBankAccountScreen: { screen: DriverBankAccountScreen },
   DriverRegisterationScreen: { screen: DriverRegisterationScreen },
   BackgroundCheckScreen: { screen: BackgroundCheckScreen },

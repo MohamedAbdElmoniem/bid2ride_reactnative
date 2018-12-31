@@ -38,7 +38,15 @@ const { Types, Creators } = createActions({
 
     getFcraRequest: [],
     getFcraSuccess: ['fcraHtml'],
-    getFcraFailure: []
+    getFcraFailure: [],
+
+    getDisclosureRequest: [],
+    getDisclosureSuccess: ['disclosureHtml'],
+    getDisclosureFailure: [],
+
+    getAuthorizationRequest: [],
+    getAuthorizationSuccess: ['authorizationHtml'],
+    getAuthorizationFailure: []
 
 })
 
@@ -62,7 +70,9 @@ export const INITIAL_STATE = Immutable({
     htmlTerms: null,
     carsList: null,
     carModelList: null,
-    fcraHtml: null
+    fcraHtml: null,
+    disclosureHtml: null,
+    authorizationHtml: null
 })
 
 /* ------------- Selectors ------------- */
@@ -75,7 +85,9 @@ export const UserAuthenticationSelectors = {
     htmlTerms: state => state.userAuthenticationState.htmlTerms,
     carsList: state => state.userAuthenticationState.carsList,
     carModelList: state => state.userAuthenticationState.carModelList,
-    fcraHtml: state => state.userAuthenticationState.fcraHtml
+    fcraHtml: state => state.userAuthenticationState.fcraHtml,
+    disclosureHtml: state => state.userAuthenticationState.disclosureHtml,
+    authorizationHtml: state => state.userAuthenticationState.authorizationHtml
 }
 
 /* ------------- Reducers ------------- */
@@ -171,6 +183,24 @@ export const getFcraSuccess = (state, { fcraHtml }) =>
 
 export const getFcraFailure = (state) =>
     state.merge({ error: true, fcraHtml: null, fetching: false })
+
+export const getDisclosureRequest = (state) =>
+    state.merge({ error: null, disclosureHtml: null, fetching: true })
+
+export const getDisclosureSuccess = (state, { disclosureHtml }) =>
+    state.merge({ error: false, disclosureHtml: disclosureHtml, fetching: false })
+
+export const getDisclosureFailure = (state) =>
+    state.merge({ error: true, disclosureHtml: null, fetching: false })
+
+export const getAuthorizationRequest = (state) =>
+    state.merge({ error: null, authorizationHtml: null, fetching: true })
+
+export const getAuthorizationSuccess = (state, { authorizationHtml }) =>
+    state.merge({ error: false, authorizationHtml: authorizationHtml, fetching: false })
+
+export const getAuthorizationFailure = (state) =>
+    state.merge({ error: true, authorizationHtml: null, fetching: false })
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
@@ -200,5 +230,11 @@ export const reducer = createReducer(INITIAL_STATE, {
     [Types.GET_CAR_MODEL_FAILURE]: getCarModelFailure,
     [Types.GET_FCRA_REQUEST]: getFcraRequest,
     [Types.GET_FCRA_SUCCESS]: getFcraSuccess,
-    [Types.GET_FCRA_FAILURE]: getFcraFailure
+    [Types.GET_FCRA_FAILURE]: getFcraFailure,
+    [Types.GET_DISCLOSURE_REQUEST]: getDisclosureRequest,
+    [Types.GET_DISCLOSURE_SUCCESS]: getDisclosureSuccess,
+    [Types.GET_DISCLOSURE_FAILURE]: getDisclosureFailure,
+    [Types.GET_AUTHORIZATION_REQUEST]: getAuthorizationRequest,
+    [Types.GET_AUTHORIZATION_SUCCESS]: getAuthorizationSuccess,
+    [Types.GET_AUTHORIZATION_FAILURE]: getAuthorizationFailure
 })

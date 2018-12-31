@@ -11,7 +11,7 @@ import { PaymentsTypes, finishPaymentsFailure } from '../Redux/PaymentsRedux'
 
 /* ------------- Sagas ------------- */
 
-import { accoutLogin, accoutRegisteration, forgotPassword, getTerms, getCars, getCarModel, getFcra } from './UserAuthenticationSagas'
+import { accoutLogin, accoutRegisteration, forgotPassword, getAuthorization, getTerms, getDisclosure, getCars, getCarModel, getFcra } from './UserAuthenticationSagas'
 import { finishPayments } from './PaymentsSagas'
 
 /* ------------- API ------------- */
@@ -32,6 +32,8 @@ export default function* root() {
     takeLatest(AccountAuthenticationTypes.GET_CARS_REQUEST, getCars, UserAuthenticationApi),
     takeLatest(AccountAuthenticationTypes.GET_CAR_MODEL_REQUEST, getCarModel, UserAuthenticationApi),
     takeLatest(AccountAuthenticationTypes.GET_FCRA_REQUEST, getFcra, UserAuthenticationApi),
+    takeLatest(AccountAuthenticationTypes.GET_DISCLOSURE_REQUEST, getDisclosure, UserAuthenticationApi),
+    takeLatest(AccountAuthenticationTypes.GET_AUTHORIZATION_REQUEST, getAuthorization, UserAuthenticationApi),
     takeLatest(PaymentsTypes.FINISH_PAYMENTS_REQUEST, finishPayments, PaymentsApi),
 
   ])

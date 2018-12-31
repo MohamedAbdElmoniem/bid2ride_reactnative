@@ -74,6 +74,18 @@ const create = (baseURL = 'https://bid2ride-staging.herokuapp.com/api/') => {
     return api.get(`v1/legal_documents/rights_under_fcra`)
   }
 
+  const getDisclosureHtml = (headersObject) => {
+    api.setHeader('X-User-Email', headersObject.email)
+    api.setHeader('X-User-Token', headersObject.token)
+    return api.get(`v1/legal_documents/disclosure`)
+  }
+
+  const getAuthorizationHtml = (headersObject) => {
+    api.setHeader('X-User-Email', headersObject.email)
+    api.setHeader('X-User-Token', headersObject.token)
+    return api.get(`v1/legal_documents/authorization`)
+  }
+
   // ------
   // STEP 3
   // ------
@@ -96,7 +108,9 @@ const create = (baseURL = 'https://bid2ride-staging.herokuapp.com/api/') => {
     getTerms,
     getCars,
     getCarModel,
-    getFcraHtml
+    getFcraHtml,
+    getDisclosureHtml,
+    getAuthorizationHtml
   }
 }
 

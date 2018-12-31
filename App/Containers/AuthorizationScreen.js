@@ -1,16 +1,19 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, KeyboardAvoidingView, View, TouchableOpacity } from 'react-native'
+import { ScrollView, Text, KeyboardAvoidingView, View, TouchableOpacity, TextInput } from 'react-native'
 import { connect } from 'react-redux'
 import UserAuthenitcationActions, { UserAuthenticationSelectors } from '../Redux/UserAuthenitcationRedux';
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 import HTML from 'react-native-render-html';
 import Checkbox from 'react-native-modest-checkbox'
-import { checkBoxTextFcra } from "../Config/DriverRegisterationText";
-// Styles
-import styles from './Styles/FcraScreenStyle'
+import { checkBoxTextDisclosure } from "../Config/DriverRegisterationText";
+// Add Actions - replace 'Your' with whatever your reducer is called :)
+// import YourActions from '../Redux/YourRedux'
 
-class FcraScreen extends Component {
+// Styles
+import styles from './Styles/DisclosureScreenStyle'
+
+class AuthorizationScreen extends Component {
 
   static navigationOptions = {
     title: 'Driver Registeration',
@@ -24,15 +27,17 @@ class FcraScreen extends Component {
     }
   }
 
+
   constructor(props) {
     super(props);
     this.state = {
-      checked: false
+      checked: false,
+      signature: ""
     }
   }
 
   componentDidMount() {
-    this.props.getFcraRequest()
+    this.props.getAuthorizationRequest()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -44,27 +49,30 @@ class FcraScreen extends Component {
       <View style={styles.container}>
         <ScrollView style={{ flex: 0.9, flexDirection: 'column', margin: 15 }}>
           <View style={{ alignItems: 'center' }}>
-            <Text style={{ fontSize: 17, color: "black" }}>YOUR RIGHT UNDER FRCA</Text>
+            <Text style={{ fontSize: 17, color: "black" }}>ACKKNOWLEDGEMENT AND AUTHORIZATION FOR BACKGROUND CHECK</Text>
           </View>
           <KeyboardAvoidingView behavior='position'>
             <HTML
-              html={this.props.fcraHtml ? this.props.fcraHtml.html : "<h5>loading...</h5>"}
+              html={this.props.authorizationHtml ? this.props.authorizationHtml.html : "<h5>loading...</h5>"}
             />
           </KeyboardAvoidingView>
+          <View style={{ alignContent: "center", flex: 1, alignItems: 'center' }}>
+            <Text style={{ fontWeight: "bold", fontSize: 15, color: "black" }}>Type full name as electronic signature</Text>
+          </View>
           <View>
-            <Checkbox
-              label={checkBoxTextFcra}
-              checked={this.state.checked}
-              labelStyle={{ flexWrap: 'wrap' }}
-              numberOfLabelLines={5}
-              onChange={(checked) => this.setState({ checked: !this.state.checked })}
-            />
+            <TextInput placeholder='Name'
+              style={{ height: 40, borderBottomWidth: 0.5, borderBottomColor: "black" }}
+              onChangeText={(signature) => this.setState({ signature }, () => {
+                // this.validateRegisterationForm()
+              })}
+              value={this.state.signature}
+              clearButtonMode='while-editing' />
           </View>
         </ScrollView>
-        {this.state.checked ? <View style={{ flex: 0.1 }}>
+        {this.state.signature ? <View style={{ flex: 0.1 }}>
           <TouchableOpacity style={styles.nextButtonActiveStyle} onPress={() => {
             const { navigation } = this.props;
-            navigation.navigate('DisclosureScreen')
+             navigation.navigate('DriverBankAccountScreen')
           }}>
             <Text style={{ color: 'white', fontSize: 15 }}>NEXT</Text>
           </TouchableOpacity>
@@ -81,14 +89,14 @@ class FcraScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    fcraHtml: UserAuthenticationSelectors.fcraHtml(state)
+    authorizationHtml: UserAuthenticationSelectors.authorizationHtml(state)
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getFcraRequest: () => dispatch(UserAuthenitcationActions.getFcraRequest())
+    getAuthorizationRequest: () => dispatch(UserAuthenitcationActions.getAuthorizationRequest())
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(FcraScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(AuthorizationScreen)
