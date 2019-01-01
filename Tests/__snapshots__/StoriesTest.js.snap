@@ -136,9 +136,9 @@ exports[`Storyshots FullButton Custom Style 1`] = `
   style={
     Object {
       "backgroundColor": "blue",
-      "borderBottomColor": "#fb5f26",
+      "borderBottomColor": "#2EBF68",
       "borderBottomWidth": 1,
-      "borderTopColor": "#e73536",
+      "borderTopColor": "#2EBF68",
       "borderTopWidth": 1,
       "marginVertical": 5,
       "opacity": 1,
@@ -173,10 +173,10 @@ exports[`Storyshots FullButton Default 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     Object {
-      "backgroundColor": "rgba(164, 0, 48, 0.5)",
-      "borderBottomColor": "#fb5f26",
+      "backgroundColor": "#2EBF68",
+      "borderBottomColor": "#2EBF68",
       "borderBottomWidth": 1,
-      "borderTopColor": "#e73536",
+      "borderTopColor": "#2EBF68",
       "borderTopWidth": 1,
       "marginVertical": 5,
       "opacity": 1,
@@ -211,11 +211,11 @@ exports[`Storyshots RoundedButton Default 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     Object {
-      "backgroundColor": "#e73536",
-      "borderRadius": 5,
+      "backgroundColor": "#F29A40",
+      "borderRadius": 25,
       "height": 45,
       "justifyContent": "center",
-      "marginHorizontal": 25,
+      "marginHorizontal": 105,
       "marginVertical": 10,
       "opacity": 1,
     }
@@ -226,7 +226,6 @@ exports[`Storyshots RoundedButton Default 1`] = `
       Object {
         "color": "white",
         "fontSize": 14,
-        "fontWeight": "bold",
         "marginVertical": 10,
         "textAlign": "center",
       }
@@ -249,11 +248,11 @@ exports[`Storyshots RoundedButton Text as children 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     Object {
-      "backgroundColor": "#e73536",
-      "borderRadius": 5,
+      "backgroundColor": "#F29A40",
+      "borderRadius": 25,
       "height": 45,
       "justifyContent": "center",
-      "marginHorizontal": 25,
+      "marginHorizontal": 105,
       "marginVertical": 10,
       "opacity": 1,
     }
@@ -264,7 +263,6 @@ exports[`Storyshots RoundedButton Text as children 1`] = `
       Object {
         "color": "white",
         "fontSize": 14,
-        "fontWeight": "bold",
         "marginVertical": 10,
         "textAlign": "center",
       }
