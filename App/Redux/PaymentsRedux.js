@@ -7,7 +7,9 @@ const { Types, Creators } = createActions({
     saveStripeTokenForPayments: ['stripetoken'],
     finishPaymentsRequest: ['stripetoken'],
     finishPaymentsSuccess: ['accountData'],
-    finishPaymentsFailure: []
+    finishPaymentsFailure: [],
+    saveStripeTokenForPaymentsDriver: ['stripeTokenDriver'],
+
 })
 
 export const PaymentsTypes = Types
@@ -19,7 +21,8 @@ export const INITIAL_STATE = Immutable({
     fetching: null,
     error: null,
     stripetoken: null,
-    accountData: null
+    accountData: null,
+    stripeTokenDriver: null
 })
 
 /* ------------- Selectors ------------- */
@@ -28,7 +31,8 @@ export const PaymentsSelectors = {
     isError: state => state.PaymentsState.error,
     isFetching: state => state.PaymentsState.fetching,
     stripeToken: state => state.PaymentsState.stripetoken,
-    latestAccountData: state => state.PaymentsState.accountData
+    latestAccountData: state => state.PaymentsState.accountData,
+    stripeTokenDriver: state => state.PaymentsState.stripeTokenDriver
 }
 
 /* ------------- Reducers ------------- */
@@ -36,6 +40,9 @@ export const PaymentsSelectors = {
 // request the avatar for a user
 export const saveStripeTokenForPayments = (state, { stripetoken }) =>
     state.merge({ fetching: false, error: false, stripetoken })
+
+export const saveStripeTokenForPaymentsDriver = (state, { stripeTokenDriver }) =>
+    state.merge({ fetching: false, error: false, stripeTokenDriver })
 
 export const finishPaymentsRequest = (state, { stripetoken }) =>
     state.merge({ fetching: true })
@@ -52,6 +59,7 @@ export const finishPaymentsFailure = (state) =>
 
 export const reducer = createReducer(INITIAL_STATE, {
     [Types.SAVE_STRIPE_TOKEN_FOR_PAYMENTS]: saveStripeTokenForPayments,
+    [Types.SAVE_STRIPE_TOKEN_FOR_PAYMENTS_DRIVER]: saveStripeTokenForPaymentsDriver,
     [Types.FINISH_PAYMENTS_REQUEST]: finishPaymentsRequest,
     [Types.FINISH_PAYMENTS_SUCCESS]: finishPaymentsSuccess,
     [Types.FINISH_PAYMENTS_FAILURE]: finishPaymentsFailure,

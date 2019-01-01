@@ -46,8 +46,11 @@ const { Types, Creators } = createActions({
 
     getAuthorizationRequest: [],
     getAuthorizationSuccess: ['authorizationHtml'],
-    getAuthorizationFailure: []
+    getAuthorizationFailure: [],
 
+    savePaymentsDriverRequest: ['stripeTokenDriver'],
+    savePaymentsDriverSuccess: ['driverAccountData'],
+    savePaymentsDriverFailure: ['']
 })
 
 export const AccountAuthenticationTypes = Types
@@ -72,7 +75,8 @@ export const INITIAL_STATE = Immutable({
     carModelList: null,
     fcraHtml: null,
     disclosureHtml: null,
-    authorizationHtml: null
+    authorizationHtml: null,
+    driverAccountData: null
 })
 
 /* ------------- Selectors ------------- */
@@ -201,6 +205,16 @@ export const getAuthorizationSuccess = (state, { authorizationHtml }) =>
 
 export const getAuthorizationFailure = (state) =>
     state.merge({ error: true, authorizationHtml: null, fetching: false })
+
+
+export const savePaymentsDriverRequest = (state) =>
+    state.merge({ error: null, driverAccountData: null, fetching: true })
+
+export const savePaymentsDriverSuccess = (state, { driverAccountData }) =>
+    state.merge({ error: false, driverAccountData: driverAccountData, fetching: false })
+
+export const savePaymentsDriverFailure = (state) =>
+    state.merge({ error: true, driverAccountData: null, fetching: false })
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
@@ -236,5 +250,8 @@ export const reducer = createReducer(INITIAL_STATE, {
     [Types.GET_DISCLOSURE_FAILURE]: getDisclosureFailure,
     [Types.GET_AUTHORIZATION_REQUEST]: getAuthorizationRequest,
     [Types.GET_AUTHORIZATION_SUCCESS]: getAuthorizationSuccess,
-    [Types.GET_AUTHORIZATION_FAILURE]: getAuthorizationFailure
+    [Types.GET_AUTHORIZATION_FAILURE]: getAuthorizationFailure,
+    [Types.SAVE_PAYMENTS_DRIVER_REQUEST]:savePaymentsDriverRequest,
+    [Types.SAVE_PAYMENTS_DRIVER_SUCCESS]:savePaymentsDriverSuccess,
+    [Types.SAVE_PAYMENTS_DRIVER_FAILURE]:savePaymentsDriverFailure
 })

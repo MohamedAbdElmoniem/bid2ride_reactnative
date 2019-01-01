@@ -86,6 +86,11 @@ const create = (baseURL = 'https://bid2ride-staging.herokuapp.com/api/') => {
     return api.get(`v1/legal_documents/authorization`)
   }
 
+  const savePaymentsDriver = (data) => {
+    api.setHeader('X-User-Email', 'remo@gmail.com')
+    api.setHeader('X-User-Token', 'iTXfjqs3pmFkazPnqiie')
+    return api.post(`v1/drivers`,data)
+  }
   // ------
   // STEP 3
   // ------
@@ -110,7 +115,8 @@ const create = (baseURL = 'https://bid2ride-staging.herokuapp.com/api/') => {
     getCarModel,
     getFcraHtml,
     getDisclosureHtml,
-    getAuthorizationHtml
+    getAuthorizationHtml,
+    savePaymentsDriver
   }
 }
 

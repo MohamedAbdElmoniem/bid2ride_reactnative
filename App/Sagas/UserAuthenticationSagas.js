@@ -121,3 +121,18 @@ export function* getAuthorization(api, action) {
         yield put(UserAuthenitcationActions.getAuthorizationFailure())
     }
 }
+
+export function* savePaymentsDriver(api, action) {
+
+    const {stripeTokenDriver} =action
+    // make the call to the api
+    const response = yield call(api.savePaymentsDriver, stripeTokenDriver)
+
+    if (response.ok) {
+        const driverAccountData = response.data
+        // do data conversion here if needed
+        yield put(UserAuthenitcationActions.savePaymentsDriverSuccess(driverAccountData))
+    } else {
+        yield put(UserAuthenitcationActions.savePaymentsDriverFailure())
+    }
+}
