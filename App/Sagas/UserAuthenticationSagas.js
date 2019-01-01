@@ -82,3 +82,57 @@ export function* getCarModel(api, { car }) {
         yield put(UserAuthenitcationActions.getCarModelFailure())
     }
 }
+
+export function* getFcra(api, action) {
+    // make the call to the api
+    const response = yield call(api.getFcraHtml, { email: "eslam@fdsf.com", token: "FsmBe8TZ4hxf9GCgC_NW" })
+
+    if (response.ok) {
+        const html = response.data
+        // do data conversion here if needed
+        yield put(UserAuthenitcationActions.getFcraSuccess(html))
+    } else {
+        yield put(UserAuthenitcationActions.getFcraFailure())
+    }
+}
+
+export function* getDisclosure(api, action) {
+    // make the call to the api
+    const response = yield call(api.getDisclosureHtml, { email: "eslam@fdsf.com", token: "FsmBe8TZ4hxf9GCgC_NW" })
+
+    if (response.ok) {
+        const html = response.data
+        // do data conversion here if needed
+        yield put(UserAuthenitcationActions.getDisclosureSuccess(html))
+    } else {
+        yield put(UserAuthenitcationActions.getDisclosureFailure())
+    }
+}
+
+export function* getAuthorization(api, action) {
+    // make the call to the api
+    const response = yield call(api.getAuthorizationHtml, { email: "eslam@fdsf.com", token: "FsmBe8TZ4hxf9GCgC_NW" })
+
+    if (response.ok) {
+        const html = response.data
+        // do data conversion here if needed
+        yield put(UserAuthenitcationActions.getAuthorizationSuccess(html))
+    } else {
+        yield put(UserAuthenitcationActions.getAuthorizationFailure())
+    }
+}
+
+export function* savePaymentsDriver(api, action) {
+
+    const {stripeTokenDriver} =action
+    // make the call to the api
+    const response = yield call(api.savePaymentsDriver, stripeTokenDriver)
+
+    if (response.ok) {
+        const driverAccountData = response.data
+        // do data conversion here if needed
+        yield put(UserAuthenitcationActions.savePaymentsDriverSuccess(driverAccountData))
+    } else {
+        yield put(UserAuthenitcationActions.savePaymentsDriverFailure())
+    }
+}

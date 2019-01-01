@@ -6,7 +6,7 @@ import Colors from '../Themes/Colors';
 import { states } from "../Config/USstates";
 import Picker from 'react-native-picker';
 import Modal from "react-native-modal";
-
+import { _createDateData } from "../Utils/createDatePickerFunction";
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 
@@ -60,7 +60,8 @@ class DriverFormScreen extends Component {
       car_year: '',
       isModalVisible_carMake: false,
       listToShow: [],
-      searchedcar: ''
+      searchedcar: '',
+      disableMiddleName: false
     }
   }
 
@@ -90,7 +91,7 @@ class DriverFormScreen extends Component {
 
   handleOpenStatesPicker = () => {
     Picker.init({
-      pickerData: states,
+      pickerData: states.map(val => val.name),
       selectedValue: [0],
       onPickerSelect: data => {
         this.setState({ State: data[0] }, () => {
@@ -117,8 +118,18 @@ class DriverFormScreen extends Component {
   }
 
   handleFinishRegisteration = () => {
-    const {state} = this;
-debugger
+    const { navigation } = this.props;
+    navigation.navigate('DriverRegisterationScreen')
+  }
+
+  _showDatePicker = () => {
+    Picker.init({
+      pickerData: _createDateData(),
+      onPickerConfirm: (pickedValue, pickedIndex) => {
+        this.setState({ dob: pickedValue })
+      }
+    });
+    Picker.show();
   }
 
   _toggleModal = () =>
@@ -165,6 +176,7 @@ debugger
             />
             <TextInput
               placeholder='Middle name'
+              editable={!this.state.disableMiddleName}
               style={styles.mainInput}
               onChangeText={(middle_name) => this.setState({ middle_name }, () => {
                 this.validateRegisterationForm()
@@ -173,7 +185,9 @@ debugger
               clearButtonMode='while-editing'
             />
             <View style={{ margin: 15, flex: 1, flexDirection: 'row' }}>
-              <Switch width={50} height={30} backgroundActive={Colors.roundedOrangeButton} />
+              <Switch width={50} height={30} onSyncPress={(value) => {
+                value ? this.setState({ disableMiddleName: value, middle_name: null }) : this.setState({ disableMiddleName: value })
+              }} backgroundActive={Colors.roundedOrangeButton} />
               <Text>I do not have a middle name</Text>
             </View>
             <TextInput
@@ -218,6 +232,7 @@ debugger
               </View>
               <View style={{ flex: 0.5 }}>
                 <TextInput
+                  maxLength={5}
                   placeholder='Zip'
                   style={styles.mainInput}
                   onChangeText={(Zip) => this.setState({ Zip }, () => {
@@ -247,6 +262,9 @@ debugger
                 <TextInput
                   placeholder='Date of Birth'
                   style={styles.mainInput}
+                  onFocus={() => {
+                    this._showDatePicker()
+                  }}
                   onChangeText={(dob) => this.setState({ dob }, () => {
                     this.validateRegisterationForm()
                   })}

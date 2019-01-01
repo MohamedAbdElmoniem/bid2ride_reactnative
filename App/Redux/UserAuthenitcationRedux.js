@@ -34,8 +34,23 @@ const { Types, Creators } = createActions({
 
     getCarModelRequest: ['car'],
     getCarModelSuccess: ['carModelData'],
-    getCarModelFailure: []
+    getCarModelFailure: [],
 
+    getFcraRequest: [],
+    getFcraSuccess: ['fcraHtml'],
+    getFcraFailure: [],
+
+    getDisclosureRequest: [],
+    getDisclosureSuccess: ['disclosureHtml'],
+    getDisclosureFailure: [],
+
+    getAuthorizationRequest: [],
+    getAuthorizationSuccess: ['authorizationHtml'],
+    getAuthorizationFailure: [],
+
+    savePaymentsDriverRequest: ['stripeTokenDriver'],
+    savePaymentsDriverSuccess: ['driverAccountData'],
+    savePaymentsDriverFailure: ['']
 })
 
 export const AccountAuthenticationTypes = Types
@@ -57,7 +72,11 @@ export const INITIAL_STATE = Immutable({
     verifingSuccess: null,
     htmlTerms: null,
     carsList: null,
-    carModelList: null
+    carModelList: null,
+    fcraHtml: null,
+    disclosureHtml: null,
+    authorizationHtml: null,
+    driverAccountData: null
 })
 
 /* ------------- Selectors ------------- */
@@ -69,7 +88,10 @@ export const UserAuthenticationSelectors = {
     isError: state => state.userAuthenticationState.error,
     htmlTerms: state => state.userAuthenticationState.htmlTerms,
     carsList: state => state.userAuthenticationState.carsList,
-    carModelList: state => state.userAuthenticationState.carModelList
+    carModelList: state => state.userAuthenticationState.carModelList,
+    fcraHtml: state => state.userAuthenticationState.fcraHtml,
+    disclosureHtml: state => state.userAuthenticationState.disclosureHtml,
+    authorizationHtml: state => state.userAuthenticationState.authorizationHtml
 }
 
 /* ------------- Reducers ------------- */
@@ -156,6 +178,43 @@ export const getCarModelSuccess = (state, { carModelData }) =>
 
 export const getCarModelFailure = (state) =>
     state.merge({ error: true, carModelList: null, fetching: false })
+
+export const getFcraRequest = (state) =>
+    state.merge({ error: null, fcraHtml: null, fetching: true })
+
+export const getFcraSuccess = (state, { fcraHtml }) =>
+    state.merge({ error: false, fcraHtml: fcraHtml, fetching: false })
+
+export const getFcraFailure = (state) =>
+    state.merge({ error: true, fcraHtml: null, fetching: false })
+
+export const getDisclosureRequest = (state) =>
+    state.merge({ error: null, disclosureHtml: null, fetching: true })
+
+export const getDisclosureSuccess = (state, { disclosureHtml }) =>
+    state.merge({ error: false, disclosureHtml: disclosureHtml, fetching: false })
+
+export const getDisclosureFailure = (state) =>
+    state.merge({ error: true, disclosureHtml: null, fetching: false })
+
+export const getAuthorizationRequest = (state) =>
+    state.merge({ error: null, authorizationHtml: null, fetching: true })
+
+export const getAuthorizationSuccess = (state, { authorizationHtml }) =>
+    state.merge({ error: false, authorizationHtml: authorizationHtml, fetching: false })
+
+export const getAuthorizationFailure = (state) =>
+    state.merge({ error: true, authorizationHtml: null, fetching: false })
+
+
+export const savePaymentsDriverRequest = (state) =>
+    state.merge({ error: null, driverAccountData: null, fetching: true })
+
+export const savePaymentsDriverSuccess = (state, { driverAccountData }) =>
+    state.merge({ error: false, driverAccountData: driverAccountData, fetching: false })
+
+export const savePaymentsDriverFailure = (state) =>
+    state.merge({ error: true, driverAccountData: null, fetching: false })
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
@@ -182,6 +241,17 @@ export const reducer = createReducer(INITIAL_STATE, {
     [Types.GET_CARS_FAILURE]: getCarsFailure,
     [Types.GET_CAR_MODEL_REQUEST]: getCarModelRequest,
     [Types.GET_CAR_MODEL_SUCCESS]: getCarModelSuccess,
-    [Types.GET_CAR_MODEL_FAILURE]: getCarModelFailure
-
+    [Types.GET_CAR_MODEL_FAILURE]: getCarModelFailure,
+    [Types.GET_FCRA_REQUEST]: getFcraRequest,
+    [Types.GET_FCRA_SUCCESS]: getFcraSuccess,
+    [Types.GET_FCRA_FAILURE]: getFcraFailure,
+    [Types.GET_DISCLOSURE_REQUEST]: getDisclosureRequest,
+    [Types.GET_DISCLOSURE_SUCCESS]: getDisclosureSuccess,
+    [Types.GET_DISCLOSURE_FAILURE]: getDisclosureFailure,
+    [Types.GET_AUTHORIZATION_REQUEST]: getAuthorizationRequest,
+    [Types.GET_AUTHORIZATION_SUCCESS]: getAuthorizationSuccess,
+    [Types.GET_AUTHORIZATION_FAILURE]: getAuthorizationFailure,
+    [Types.SAVE_PAYMENTS_DRIVER_REQUEST]:savePaymentsDriverRequest,
+    [Types.SAVE_PAYMENTS_DRIVER_SUCCESS]:savePaymentsDriverSuccess,
+    [Types.SAVE_PAYMENTS_DRIVER_FAILURE]:savePaymentsDriverFailure
 })

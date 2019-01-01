@@ -68,6 +68,29 @@ const create = (baseURL = 'https://bid2ride-staging.herokuapp.com/api/') => {
     return api.get(`v1/car_models?car_make_id=${carId}`)
   }
 
+  const getFcraHtml = (headersObject) => {
+    api.setHeader('X-User-Email', headersObject.email)
+    api.setHeader('X-User-Token', headersObject.token)
+    return api.get(`v1/legal_documents/rights_under_fcra`)
+  }
+
+  const getDisclosureHtml = (headersObject) => {
+    api.setHeader('X-User-Email', headersObject.email)
+    api.setHeader('X-User-Token', headersObject.token)
+    return api.get(`v1/legal_documents/disclosure`)
+  }
+
+  const getAuthorizationHtml = (headersObject) => {
+    api.setHeader('X-User-Email', headersObject.email)
+    api.setHeader('X-User-Token', headersObject.token)
+    return api.get(`v1/legal_documents/authorization`)
+  }
+
+  const savePaymentsDriver = (data) => {
+    api.setHeader('X-User-Email', 'remo@gmail.com')
+    api.setHeader('X-User-Token', 'iTXfjqs3pmFkazPnqiie')
+    return api.post(`v1/drivers`,data)
+  }
   // ------
   // STEP 3
   // ------
@@ -89,7 +112,11 @@ const create = (baseURL = 'https://bid2ride-staging.herokuapp.com/api/') => {
     verifyPhoneNumber,
     getTerms,
     getCars,
-    getCarModel
+    getCarModel,
+    getFcraHtml,
+    getDisclosureHtml,
+    getAuthorizationHtml,
+    savePaymentsDriver
   }
 }
 

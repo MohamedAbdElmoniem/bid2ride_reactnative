@@ -17,7 +17,7 @@ class LoginScreen extends Component {
     headerStyle: {
       backgroundColor: '#f2a758',
     },
-    headerBackTitle:null,
+    headerBackTitle: null,
     backTitle: null,
     headerTintColor: '#fff',
     headerTitleStyle: {
@@ -42,11 +42,12 @@ class LoginScreen extends Component {
 
 
     if (!nextProps.isLoginRequestFetching && !nextProps.isLoginRequestError && nextProps.accountData) {
-      //alert('signed in')
+      const { navigation } = this.props;
+      navigation.navigate('PassengerHomeScreen')
 
     }
-    if(nextProps.isLoginRequestError){
-     // alert('error')
+    if (nextProps.isLoginRequestError) {
+      // alert('error')
     }
 
   }
